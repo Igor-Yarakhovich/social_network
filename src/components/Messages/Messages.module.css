@@ -1,0 +1,20 @@
+.Messages {
+    display: grid;
+    grid-template-columns: 0.5fr 4fr;
+}
+
+.Messages_items {
+    margin-left: 15px;
+    display: grid;
+    grid-template-rows: 2fr 2fr 2fr 2fr;
+}
+
+.Messages_text {
+    display: grid;
+    grid-template-rows: 2fr 2fr 2fr 2fr;
+}
+
+.ButtonMessage {
+    width: 140px;
+}
+
