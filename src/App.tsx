@@ -12,7 +12,7 @@ import {StateType} from "./redux/types";
 
 
 type AppPropsType = {
-    state: StateType
+    _state: StateType
     addPost: () => void
     changeNewText: (newText: string) => void
     newMessage: () => void
@@ -27,13 +27,13 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path={"/Message"}
-                           render={() => <Messages messagesData={props.state.messagesPage.messagesData}
-                                                   dialogsData={props.state.messagesPage.dialogsData}
-                                                   newMessageText={props.state.messagesPage.newMessageText}
+                           render={() => <Messages messagesData={props._state.messagesPage.messagesData}
+                                                   dialogsData={props._state.messagesPage.dialogsData}
+                                                   newMessageText={props._state.messagesPage.newMessageText}
                                                    newMessageCallback={props.newMessage}
                                                    changeNewMessageCallback={props.changeNewMessage}
                                                 />}/>
-                    <Route path={"/Profile"} render={() => <Profile profilePage={props.state.profilePage}
+                    <Route path={"/Profile"} render={() => <Profile profilePage={props._state.profilePage}
                                                                     addPostCallback={props.addPost}
                                                                     changeNewTextCallback={props.changeNewText}
                                                                 />}/>
