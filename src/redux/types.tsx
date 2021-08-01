@@ -14,6 +14,8 @@ export type PostsType = {
     counts: number
 }
 
+export type SidebarType = {}
+
 export type MessagesPageType = {
     messagesData: Array<MessageType>
     dialogsData: Array<DialogType>
@@ -28,6 +30,7 @@ export type ProfilePageType = {
 export type StateType = {
     messagesPage: MessagesPageType
     profilePage: ProfilePageType
+    sidebar: SidebarType
 
 }
 
@@ -54,9 +57,6 @@ export type ChangeNewMessageType = {
 export  type StoreType = {
     _state: StateType
     _callSubscriber: () => void
-    // addPost: () => void
-    // changeNewText: (newText: string) => void
-    // newMessage: () => void
     changeNewMessage: (newMessage: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType

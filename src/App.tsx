@@ -31,8 +31,6 @@ function App(props: AppPropsType) {
 
                            />}/>
                     <Route path={"/Profile"} render={() => <Profile profilePage={props._state.profilePage}
-                                                                    // addPostCallback={props.addPost}
-                                                                    // changeNewTextCallback={props.changeNewText}
                                                                     dispatch={props.dispatch}
                     />}/>
                     <Route path={"/News"} render={() => <News/>}/>
