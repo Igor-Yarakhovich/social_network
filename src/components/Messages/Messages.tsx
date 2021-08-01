@@ -3,25 +3,30 @@ import m from './Messages.module.css'
 
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from "../../redux/types";
+import {ActionsType, DialogType, MessageType} from "../../redux/types";
+import {changeNewMessageTextAC, newMessageAC} from "../../redux/state";
 
 type MessagesType = {
     messagesData: Array<MessageType>
     dialogsData: Array<DialogType>
-    newMessageCallback:()=>void
-    changeNewMessageCallback:(newMessage:string)=>void
     newMessageText:string
+    dispatch: (action: ActionsType) => void
+    // newMessageCallback:()=>void
+    // changeNewMessageCallback:(newMessage:string)=>void
+
 }
 export const Messages = (props: MessagesType) => {
     let messageElement = props.messagesData.map((d: MessageType) => <Dialogs name={d.name} id={d.id}/>)
     let dialogElement = props.dialogsData.map((m: DialogType) => <Message text={m.text} id={m.id}/>)
 
     let addMessage = () => {
-        props.newMessageCallback()
+        // props.newMessageCallback()
+        props.dispatch(newMessageAC(props.newMessageText))
     }
 
     let onMessageOnchange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageCallback(e.currentTarget.value);
+        // props.changeNewMessageCallback(e.currentTarget.value);
+        props.dispatch(changeNewMessageTextAC(e.currentTarget.value))
     }
     return (
         <div className={m.Messages}>

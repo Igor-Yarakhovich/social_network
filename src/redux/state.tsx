@@ -1,16 +1,13 @@
 import {v1} from "uuid";
-import {DialogType, PostsType, StateType} from "./types";
+import {
+    AddPostActionType, ChangeNewMessageType,
+    DialogType,
+    NewMessageType,
+    PostsType,
+    StoreType,
+    UpdateNewPostTextActionType
+} from "./types";
 
-export  type StoreType = {
-    _state: StateType
-    _callSubscriber: () => void
-    addPost: () => void
-    changeNewText: (newText: string) => void
-    newMessage: () => void
-    changeNewMessage: (newMessage: string) => void
-    subscribe: (observer: () => void) => void
-    getState: () => StateType
-}
 
 export const store: StoreType = {
     _state: {
@@ -40,46 +37,104 @@ export const store: StoreType = {
             ]
         }
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber() {
         console.log("State changed")
     },
-    addPost() {
-        let newPost: PostsType = {
-            id: v1(),
-            message: this._state.profilePage.newPostText,
-            counts: 0
-        }
+    getState() {
+        return this._state
+    },
 
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ''
-
-        this._callSubscriber();
-    },
-    changeNewText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber();
-    },
-    newMessage() {
-        let newMessage: DialogType = {
-            text: this._state.messagesPage.newMessageText,
-            id: v1()
-        }
-        this._state.messagesPage.dialogsData.push(newMessage)
-        this._state.messagesPage.newMessageText = ''
-        this._callSubscriber();
-    },
+    // addPost() {
+    //     let newPost: PostsType = {
+    //         id: v1(),
+    //         message: this._state.profilePage.newPostText,
+    //         counts: 0
+    //     }
+    //
+    //     this._state.profilePage.postsData.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //
+    //     this._callSubscriber();
+    // },
+    // changeNewText(newText: string) {
+    //     this._state.profilePage.newPostText = newText
+    //     this._callSubscriber();
+    // },
+    // newMessage() {
+    //     let newMessage: DialogType = {
+    //         text: this._state.messagesPage.newMessageText,
+    //         id: v1()
+    //     }
+    //     this._state.messagesPage.dialogsData.push(newMessage)
+    //     this._state.messagesPage.newMessageText = ''
+    //     this._callSubscriber();
+    // },
     changeNewMessage(newMessage: string) {
         this._state.messagesPage.newMessageText = newMessage
         this._callSubscriber();
     },
     subscribe(observer: () => void) {
         this._callSubscriber = observer;
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostsType = {
+                id: v1(),
+                message: action.newPostText,
+                counts: 0
+            }
+
+            this._state.profilePage.postsData.push(newPost)
+            this._state.profilePage.newPostText = ''
+
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber();
+        } else if (action.type === 'NEW-MESSAGE') {
+            let newMessage: DialogType = {
+                text: action.newMessageText,
+                id: v1()
+            }
+            this._state.messagesPage.dialogsData.push(newMessage)
+            this._state.messagesPage.newMessageText = ''
+            this._callSubscriber();
+        } else if (action.type === 'CHANGE-NEW-MESSAGE') {
+            this._state.messagesPage.newMessageText = action.newMessage
+            this._callSubscriber();
+        }
     }
 
 }
+
+export const addPostAC = (newPostText: string): AddPostActionType => {
+    return {
+        type: "ADD-POST",
+        newPostText: newPostText
+    }
+}
+
+export const updateNewPosTextAC = (newText: string): UpdateNewPostTextActionType => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText: newText
+    }
+}
+
+export const newMessageAC = (newMessageText: string): NewMessageType => {
+    return {
+        type: 'NEW-MESSAGE',
+        newMessageText: newMessageText
+    }
+}
+
+export const changeNewMessageTextAC = (newMessage: string): ChangeNewMessageType => {
+    return {
+        type: 'CHANGE-NEW-MESSAGE',
+        newMessage: newMessage
+    }
+}
+
 
 
 

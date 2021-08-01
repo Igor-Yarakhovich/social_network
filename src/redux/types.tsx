@@ -17,7 +17,7 @@ export type PostsType = {
 export type MessagesPageType = {
     messagesData: Array<MessageType>
     dialogsData: Array<DialogType>
-    newMessageText:string
+    newMessageText: string
 }
 
 export type ProfilePageType = {
@@ -31,3 +31,36 @@ export type StateType = {
 
 }
 
+export type AddPostActionType = {
+    type: 'ADD-POST'
+    newPostText: string
+}
+
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type NewMessageType = {
+    type: 'NEW-MESSAGE'
+    newMessageText: string
+}
+
+export type ChangeNewMessageType = {
+    type: 'CHANGE-NEW-MESSAGE'
+    newMessage: string
+}
+
+export  type StoreType = {
+    _state: StateType
+    _callSubscriber: () => void
+    // addPost: () => void
+    // changeNewText: (newText: string) => void
+    // newMessage: () => void
+    changeNewMessage: (newMessage: string) => void
+    subscribe: (observer: () => void) => void
+    getState: () => StateType
+    dispatch: (action: ActionsType) => void
+}
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType
