@@ -1,7 +1,23 @@
 import {ActionsType, ChangeNewMessageType, DialogType, MessagesPageType, NewMessageType} from "./types";
 import {v1} from "uuid";
 
-export const messagesReducer = (_state: MessagesPageType, action: ActionsType): MessagesPageType => {
+let initialState = {
+    messagesData: [
+        {name: 'Igor', id: v1()},
+        {name: 'Anna', id: v1()},
+        {name: 'Maxim', id: v1()},
+        {name: 'Vlad', id: v1()}
+    ],
+    newMessageText: '',
+    dialogsData: [
+        {text: 'Hello my friend!', id: v1()},
+        {text: 'How are you?', id: v1()},
+        {text: 'Yo!', id: v1()},
+        {text: 'Hello brother', id: v1()}
+    ]
+}
+
+export const messagesReducer = (_state: MessagesPageType = initialState, action: ActionsType): MessagesPageType => {
     switch (action.type) {
         case "NEW-MESSAGE":
             let newMessage: DialogType = {
