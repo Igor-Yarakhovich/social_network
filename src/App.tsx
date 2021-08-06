@@ -30,9 +30,9 @@ function App(props: AppPropsType) {
                                                    dispatch={props.dispatch}
 
                            />}/>
-                    <Route path={"/Profile"} render={() => <Profile profilePage={props._state.profilePage}
-                                                                    dispatch={props.dispatch}
-                    />}/>
+                    <Route path={"/Profile"}
+                           render={() => <Profile profilePage={props._state.profilePage} dispatch={props.dispatch}
+                           />}/>
                     <Route path={"/News"} render={() => <News/>}/>
                     <Route path={"/Music"} render={() => <Music/>}/>
                     <Route path={"/Settings"} render={() => <Settings/>}/>

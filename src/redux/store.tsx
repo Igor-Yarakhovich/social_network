@@ -49,10 +49,11 @@ export const store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        debugger
+        console.log(action)
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        console.log(this._state)
         this._callSubscriber();
     }
 }
