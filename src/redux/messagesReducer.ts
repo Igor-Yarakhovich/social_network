@@ -1,4 +1,4 @@
-import {ActionsType, ChangeNewMessageType, DialogType, MessagesPageType, NewMessageType} from "./types";
+import {ActionsType, ChangeNewMessageType, MessagesPageType, NewMessageType} from "./types";
 import {v1} from "uuid";
 
 let initialState = {
@@ -17,21 +17,24 @@ let initialState = {
     ]
 }
 
-export const messagesReducer = (_state: MessagesPageType = initialState, action: ActionsType): MessagesPageType => {
+export const messagesReducer = (state: MessagesPageType = initialState, action: ActionsType): MessagesPageType => {
     switch (action.type) {
         case "NEW-MESSAGE":
-            let newMessage: DialogType = {
-                text: action.newMessageText,
-                id: v1()
+            return {
+                ...state,
+                dialogsData: [...state.dialogsData,
+                    {text: state.newMessageText, id: v1()}
+                ],
+                newMessageText: ''
             }
-            _state.dialogsData.push(newMessage)
-            _state.newMessageText = ''
-            return _state
+
         case "CHANGE-NEW-MESSAGE":
-            _state.newMessageText = action.newMessage
-            return _state
+            return {
+                ...state,
+                newMessageText: action.newMessage
+            }
         default:
-            return _state
+            return state
     }
 }
 

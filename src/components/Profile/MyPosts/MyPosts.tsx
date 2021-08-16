@@ -6,24 +6,20 @@ import {PostsType} from "../../../redux/types";
 type MyPostsType = {
     postsData: Array<PostsType>
     newPostText: string
-    // dispatch: (action: ActionsType) => void
     addPosts: () => void
     updateNewPosText: (text: string) => void
 }
 
 
 export const MyPosts = (props: MyPostsType) => {
-
-    let PostsDataElement = props.postsData.map((p: PostsType) => <Post message={p.message} counts={p.counts}/>)
+    let PostsDataElement = props.postsData.map((p: PostsType) => <Post key={p.id} message={p.message} counts={p.counts}/>)
 
     let onAddPost = () => {
         props.addPosts();
     }
 
-
     let onPostOnchange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        console.log(text)
         props.updateNewPosText(text)
     }
 
@@ -31,7 +27,9 @@ export const MyPosts = (props: MyPostsType) => {
         <div>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={onPostOnchange}
+
+                <textarea
+                    onChange={onPostOnchange}
                           value={props.newPostText}
                           placeholder={"Enter your post"}
                 />

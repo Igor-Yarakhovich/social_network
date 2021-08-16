@@ -14,7 +14,16 @@ export type PostsType = {
     counts: number
 }
 
+export type LocationType = {
+    city: string
+    country: string
+}
+
 export type SidebarType = {}
+
+export type UsersPageType = {
+    users:Array<UsersType>
+}
 
 export type MessagesPageType = {
     messagesData: Array<MessageType>
@@ -27,6 +36,15 @@ export type ProfilePageType = {
     postsData: Array<PostsType>
 }
 
+export type UsersType = {
+    id: string
+    followed: boolean
+    photoUrl:string
+    fullName: string
+    status: string
+    location: LocationType
+}
+
 export type StateType = {
     messagesPage: MessagesPageType
     profilePage: ProfilePageType
@@ -36,13 +54,28 @@ export type StateType = {
 
 export type AddPostActionType = {
     type: 'ADD-POST'
-    newPostText: string
+}
+
+export type FollowActionType = {
+    type: 'FOLLOW'
+    userId:string
+}
+
+export type UnFollowActionType = {
+    type: 'UNFOLLOW'
+    userId:string
+}
+
+export type SetUsersActionType = {
+    type: 'SET-USERS'
+    users: UsersType[]
 }
 
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
+
 
 export type NewMessageType = {
     type: 'NEW-MESSAGE'
@@ -63,4 +96,5 @@ export  type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType |
+    FollowActionType | UnFollowActionType | SetUsersActionType
