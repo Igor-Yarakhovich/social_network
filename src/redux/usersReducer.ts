@@ -1,4 +1,4 @@
-import {ActionsType, FollowActionType, SetUsersActionType, UnFollowActionType, UsersPageType, UsersType} from "./types";
+import {ActionsType, FollowActionType, SetUsersActionType, UnFollowActionType, UsersPageType, UserType} from "./types";
 
 let initialState = {
     users: []
@@ -28,6 +28,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 })
             }
         case "SET-USERS" :
+            debugger
             return {
                 ...state, users: [...state.users, ...action.users]
             }
@@ -36,21 +37,21 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
-export const followAC = (userId: string): FollowActionType => {
+export const followAC = (userId: number): FollowActionType => {
     return {
         type: "FOLLOW",
         userId
     }
 }
 
-export const unFollowAC = (userId: string): UnFollowActionType => {
+export const unFollowAC = (userId: number): UnFollowActionType => {
     return {
         type: "UNFOLLOW",
         userId
     }
 }
 
-export const setUsersAC = (users: UsersType[]): SetUsersActionType => {
+export const setUsersAC = (users: UserType[]): SetUsersActionType => {
     return {
         type: "SET-USERS",
         users

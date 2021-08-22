@@ -22,7 +22,7 @@ export type LocationType = {
 export type SidebarType = {}
 
 export type UsersPageType = {
-    users:Array<UsersType>
+    users: Array<UserType>
 }
 
 export type MessagesPageType = {
@@ -36,14 +36,26 @@ export type ProfilePageType = {
     postsData: Array<PostsType>
 }
 
-export type UsersType = {
-    id: string
-    followed: boolean
-    photoUrl:string
-    fullName: string
-    status: string
-    location: LocationType
+export type UserType = {
+    name:string
+    id:number
+    uniqueUrlName: null | string
+    photos: {
+        small: string | null,
+        large: string | null}
+    status: string| null
+    followed:boolean
 }
+//
+// "name": "Popugtop",
+//     "id": 19163,
+//     "uniqueUrlName": null,
+//     "photos": {
+//     "small": null,
+//         "large": null
+// },
+// "status": null,
+//     "followed": false
 
 export type StateType = {
     messagesPage: MessagesPageType
@@ -58,17 +70,17 @@ export type AddPostActionType = {
 
 export type FollowActionType = {
     type: 'FOLLOW'
-    userId:string
+    userId:number
 }
 
 export type UnFollowActionType = {
     type: 'UNFOLLOW'
-    userId:string
+    userId:number
 }
 
 export type SetUsersActionType = {
     type: 'SET-USERS'
-    users: UsersType[]
+    users: UserType[]
 }
 
 export type UpdateNewPostTextActionType = {

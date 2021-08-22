@@ -1,18 +1,17 @@
-import React from 'react';
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {ActionsType, UsersType} from "../../redux/types";
+import {ActionsType, UserType} from "../../redux/types";
 import {RootType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unFollowAC} from "../../redux/usersReducer";
 
 export type mstpType = {
-    users: Array<UsersType>
+    users: Array<UserType>
 }
 
 export type mdtpType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: UsersType[]) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setUsers: (users: UserType[]) => void
 }
 
 let mapStateToProps = (state: RootType): mstpType => {
@@ -23,13 +22,13 @@ let mapStateToProps = (state: RootType): mstpType => {
 
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void): mdtpType => {
     return {
-        follow: (userId: string) => {
+        follow: (userId: number) => {
             dispatch(followAC(userId))
         },
-        unfollow: (userId: string) => {
+        unfollow: (userId: number) => {
             dispatch(unFollowAC(userId))
         },
-        setUsers: (users: UsersType[]) => {
+        setUsers: (users: UserType[]) => {
             dispatch(setUsersAC(users))
         }
     }
