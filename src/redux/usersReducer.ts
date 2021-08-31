@@ -1,7 +1,18 @@
-import {ActionsType, FollowActionType, SetUsersActionType, UnFollowActionType, UsersPageType, UserType} from "./types";
+import {
+    ActionsType,
+    FollowActionType,
+    SetCurrentPageActionType,
+    SetUsersActionType, setUsersTotalCountActionType,
+    UnFollowActionType,
+    UsersPageType,
+    UserType
+} from "./types";
 
 let initialState = {
-    users: []
+    users: [],
+    pageSize: 20,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
@@ -28,9 +39,16 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 })
             }
         case "SET-USERS" :
-            debugger
             return {
-                ...state, users: [...state.users, ...action.users]
+                ...state, users: action.users
+            }
+        case "SET-CURRENT-PAGE" :
+            return {
+                ...state, currentPage: action.currentPage
+            }
+        case "SET-USERS-TOTAL-COUNT" :
+            return {
+                ...state, totalUsersCount: action.totalCount
             }
         default:
             return state
@@ -55,6 +73,20 @@ export const setUsersAC = (users: UserType[]): SetUsersActionType => {
     return {
         type: "SET-USERS",
         users
+    }
+}
+
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage
+    }
+}
+
+export const setUsersTotalCountAC = (totalCount: number): setUsersTotalCountActionType => {
+    return {
+        type: "SET-USERS-TOTAL-COUNT",
+        totalCount
     }
 }
 

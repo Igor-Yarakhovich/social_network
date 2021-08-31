@@ -14,15 +14,13 @@ export type PostsType = {
     counts: number
 }
 
-export type LocationType = {
-    city: string
-    country: string
-}
-
 export type SidebarType = {}
 
 export type UsersPageType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 export type MessagesPageType = {
@@ -37,31 +35,21 @@ export type ProfilePageType = {
 }
 
 export type UserType = {
-    name:string
-    id:number
+    name: string
+    id: number
     uniqueUrlName: null | string
     photos: {
         small: string | null,
-        large: string | null}
-    status: string| null
-    followed:boolean
+        large: string | null
+    }
+    status: string | null
+    followed: boolean
 }
-//
-// "name": "Popugtop",
-//     "id": 19163,
-//     "uniqueUrlName": null,
-//     "photos": {
-//     "small": null,
-//         "large": null
-// },
-// "status": null,
-//     "followed": false
 
 export type StateType = {
     messagesPage: MessagesPageType
     profilePage: ProfilePageType
     sidebar: SidebarType
-
 }
 
 export type AddPostActionType = {
@@ -70,18 +58,29 @@ export type AddPostActionType = {
 
 export type FollowActionType = {
     type: 'FOLLOW'
-    userId:number
+    userId: number
 }
 
 export type UnFollowActionType = {
     type: 'UNFOLLOW'
-    userId:number
+    userId: number
 }
 
 export type SetUsersActionType = {
     type: 'SET-USERS'
     users: UserType[]
 }
+
+export type SetCurrentPageActionType = {
+    type: "SET-CURRENT-PAGE"
+    currentPage:number
+}
+
+export type setUsersTotalCountActionType = {
+    type: "SET-USERS-TOTAL-COUNT",
+    totalCount:number
+}
+
 
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
@@ -109,4 +108,4 @@ export  type StoreType = {
 }
 
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType |
-    FollowActionType | UnFollowActionType | SetUsersActionType
+    FollowActionType | UnFollowActionType | SetUsersActionType | SetCurrentPageActionType | setUsersTotalCountActionType
