@@ -21,6 +21,7 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 export type MessagesPageType = {
@@ -87,6 +88,10 @@ export type UpdateNewPostTextActionType = {
     newText: string
 }
 
+export type toggleIsFetchingActionType = {
+    type: "TOGGLE-IS-FETCHING"
+    isFetching:boolean
+}
 
 export type NewMessageType = {
     type: 'NEW-MESSAGE'
@@ -108,4 +113,5 @@ export  type StoreType = {
 }
 
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType |
-    FollowActionType | UnFollowActionType | SetUsersActionType | SetCurrentPageActionType | setUsersTotalCountActionType
+    FollowActionType | UnFollowActionType | SetUsersActionType | SetCurrentPageActionType | setUsersTotalCountActionType |
+    toggleIsFetchingActionType
