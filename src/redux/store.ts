@@ -30,7 +30,8 @@ export const store: StoreType = {
                 {message: "It's my first post", id: v1(), counts: 45},
                 {message: 'Yo, Yo!', id: v1(), counts: 15},
                 {message: "Hello!", id: v1(), counts: 45}
-            ]
+            ],
+            profile: null
         },
         sidebar: {}
     },

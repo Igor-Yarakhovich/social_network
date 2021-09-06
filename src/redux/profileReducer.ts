@@ -1,4 +1,10 @@
-import {ActionsType, AddPostActionType, ProfilePageType, UpdateNewPostTextActionType} from "./types";
+import {
+    ActionsType,
+    AddPostActionType,
+    ProfilePageType,
+    SetUserProfileActionType,
+    UpdateNewPostTextActionType
+} from "./types";
 import {v1} from "uuid";
 
 let initialState = {
@@ -8,7 +14,8 @@ let initialState = {
         {message: "It's my first post", id: v1(), counts: 45},
         {message: 'Yo, Yo!', id: v1(), counts: 15},
         {message: "Hello!", id: v1(), counts: 45}
-    ]
+    ],
+    profile: null
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
@@ -27,6 +34,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 newPostText: action.newText
             }
+        case "SET-USER-PROFILE":
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
@@ -41,6 +53,13 @@ export const addPostAC = (): AddPostActionType => {
 export const updateNewPosTextAC = (newText: string): UpdateNewPostTextActionType => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
+        newText
+    }
+}
+
+export const setUserProfileAC = (profile:null): SetUserProfileActionType => {
+    return {
+        type: "SET-USER-PROFILE",
+        profile
     }
 }

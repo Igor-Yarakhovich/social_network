@@ -37,9 +37,6 @@ export const MyPosts = (props: MyPostsType) => {
             <div>
                 <button onClick={onAddPost}>Add posts</button>
             </div>
-            <div>
-                New posts
-            </div>
             <div className={m.posts}>
                 {PostsDataElement}
             </div>

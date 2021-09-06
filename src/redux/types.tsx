@@ -33,6 +33,7 @@ export type MessagesPageType = {
 export type ProfilePageType = {
     newPostText: string
     postsData: Array<PostsType>
+    profile: null
 }
 
 export type UserType = {
@@ -40,11 +41,32 @@ export type UserType = {
     id: number
     uniqueUrlName: null | string
     photos: {
-        small: string | null,
-        large: string | null
+        small: string
+        large: string
     }
     status: string | null
     followed: boolean
+
+}
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: object
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 export type StateType = {
@@ -55,6 +77,11 @@ export type StateType = {
 
 export type AddPostActionType = {
     type: 'ADD-POST'
+}
+
+export type SetUserProfileActionType = {
+    type: "SET-USER-PROFILE",
+    profile: any
 }
 
 export type FollowActionType = {
@@ -74,12 +101,12 @@ export type SetUsersActionType = {
 
 export type SetCurrentPageActionType = {
     type: "SET-CURRENT-PAGE"
-    currentPage:number
+    currentPage: number
 }
 
 export type setUsersTotalCountActionType = {
     type: "SET-USERS-TOTAL-COUNT",
-    totalCount:number
+    totalCount: number
 }
 
 
@@ -90,7 +117,7 @@ export type UpdateNewPostTextActionType = {
 
 export type toggleIsFetchingActionType = {
     type: "TOGGLE-IS-FETCHING"
-    isFetching:boolean
+    isFetching: boolean
 }
 
 export type NewMessageType = {
@@ -112,6 +139,17 @@ export  type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | NewMessageType | ChangeNewMessageType |
-    FollowActionType | UnFollowActionType | SetUsersActionType | SetCurrentPageActionType | setUsersTotalCountActionType |
+export type ActionsType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | NewMessageType
+    | ChangeNewMessageType
+    |
+    FollowActionType
+    | UnFollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | setUsersTotalCountActionType
+    |
     toggleIsFetchingActionType
+    | SetUserProfileActionType
