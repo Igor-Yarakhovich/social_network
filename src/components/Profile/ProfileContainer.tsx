@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setUserProfileAC} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
 import {UserType} from "../../redux/types";
+import {withRouter} from "react-router";
 
 type ProfileResponseType = {
     userId:number,
@@ -34,7 +35,11 @@ type mdtpType = {
 class ProfileContainer extends React.Component<any, any> {
 
     componentDidMount() {
-        axios.get<ProfileResponseType>(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 2
+        }
+        axios.get<ProfileResponseType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
             this.props.setUserProfileAC(response.data)
         })
     }
@@ -50,5 +55,7 @@ let mapStateToProps = (state:RootType):mdtpType => ({
     profile: state.profilePage.profile
 })
 
-export default connect(mapStateToProps,{setUserProfileAC})(ProfileContainer)
+let WidthUrlDataContainerComponent = withRouter(ProfileContainer)
+
+export default connect(mapStateToProps,{setUserProfileAC})(WidthUrlDataContainerComponent)
 
