@@ -4,15 +4,14 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfileAC} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
-import {UserType} from "../../redux/types";
 import {withRouter} from "react-router";
 
 type ProfileResponseType = {
-    userId:number,
+    userId: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: string | null,
     fullName: string | null,
-    contacts:{
+    contacts: {
         github: string | null,
         vk: string | null,
         facebook: string | null,
@@ -29,8 +28,13 @@ type ProfileResponseType = {
 }
 
 type mdtpType = {
-    profile:null
+    setUserProfileAC: (profile: null) => void
 }
+
+type mstpType = {
+    profile: null
+}
+
 
 class ProfileContainer extends React.Component<any, any> {
 
@@ -51,11 +55,11 @@ class ProfileContainer extends React.Component<any, any> {
     }
 }
 
-let mapStateToProps = (state:RootType):mdtpType => ({
+let mapStateToProps = (state: RootType): mstpType => ({
     profile: state.profilePage.profile
 })
 
 let WidthUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps,{setUserProfileAC})(WidthUrlDataContainerComponent)
+export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {setUserProfileAC})(WidthUrlDataContainerComponent)
 

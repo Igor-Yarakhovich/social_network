@@ -81,7 +81,7 @@ export type AddPostActionType = {
 
 export type SetUserProfileActionType = {
     type: "SET-USER-PROFILE",
-    profile: any
+    profile: null
 }
 
 export type FollowActionType = {
@@ -130,6 +130,22 @@ export type ChangeNewMessageType = {
     newMessage: string
 }
 
+export type AuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+
+export type SetUserDataActionType = {
+    type: "SET-USER-DATA"
+    data:{
+        id: number | null
+        email: string | null,
+        login: string | null,
+    }
+}
+
 export  type StoreType = {
     _state: StateType
     _callSubscriber: () => void
@@ -144,12 +160,11 @@ export type ActionsType =
     | UpdateNewPostTextActionType
     | NewMessageType
     | ChangeNewMessageType
-    |
-    FollowActionType
+    | FollowActionType
     | UnFollowActionType
     | SetUsersActionType
     | SetCurrentPageActionType
     | setUsersTotalCountActionType
-    |
-    toggleIsFetchingActionType
+    | toggleIsFetchingActionType
     | SetUserProfileActionType
+    | SetUserDataActionType

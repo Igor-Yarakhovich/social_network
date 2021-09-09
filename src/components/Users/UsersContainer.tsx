@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
-import {ActionsType, UserType} from "../../redux/types";
+import {UserType} from "../../redux/types";
 import {RootType} from "../../redux/redux-store";
 import {
     follow,
     setCurrentPage,
-    setUsers,
     setTotalUsersCount,
+    setUsers,
     toggleIsFetching,
     unfollow
 } from "../../redux/usersReducer";

@@ -3,12 +3,14 @@ import {profileReducer} from "./profileReducer";
 import {messagesReducer} from "./messagesReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {usersReducer} from "./usersReducer";
+import {authReducer} from "./authReducer";
 
 export let reducers = combineReducers({
-    profilePage:profileReducer,
-    messagesPage:messagesReducer,
-    sidebar:sidebarReducer,
-    usersPage: usersReducer
+    profilePage: profileReducer,
+    messagesPage: messagesReducer,
+    sidebar: sidebarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
 })
 
 export let store: Store<RootType> = createStore(reducers);
