@@ -16,13 +16,6 @@ export type PostsType = {
 
 export type SidebarType = {}
 
-export type UsersPageType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-}
 
 export type MessagesPageType = {
     messagesData: Array<MessageType>
@@ -120,6 +113,12 @@ export type toggleIsFetchingActionType = {
     isFetching: boolean
 }
 
+export type toggleIsFollowingProgressActionType = {
+    type: "TOGGLE-IS-FOLLOWING-PROGRESS",
+    isFetching: boolean
+    userId: number
+}
+
 export type NewMessageType = {
     type: 'NEW-MESSAGE'
     newMessageText: string
@@ -139,7 +138,7 @@ export type AuthType = {
 
 export type SetUserDataActionType = {
     type: "SET-USER-DATA"
-    data:{
+    data: {
         id: number | null
         email: string | null,
         login: string | null,
@@ -168,3 +167,4 @@ export type ActionsType =
     | toggleIsFetchingActionType
     | SetUserProfileActionType
     | SetUserDataActionType
+    | toggleIsFollowingProgressActionType

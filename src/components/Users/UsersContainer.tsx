@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowingProgress,
     unfollow
 } from "../../redux/usersReducer";
 import React from "react";
@@ -20,6 +20,8 @@ export type mstpType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+
+    followingInProgress: Array<number>
 }
 
 export type mdtpType = {
@@ -29,6 +31,7 @@ export type mdtpType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingProgress: (followingInProgress: boolean, id: number) => void
 }
 
 type UsersPropsType = mstpType & mdtpType
@@ -72,6 +75,8 @@ export class UsersContainer extends React.Component<UsersPropsType, UsersRespons
                    users={this.props.users}
                    unfollow={this.props.unfollow}
                    follow={this.props.follow}
+                   toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -83,7 +88,8 @@ let mapStateToProps = (state: RootType): mstpType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -116,6 +122,7 @@ export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {
         setUsers,
         setCurrentPage,
         setTotalUsersCount,
-        toggleIsFetching
+        toggleIsFetching,
+        toggleIsFollowingProgress
     }
 )(UsersContainer)

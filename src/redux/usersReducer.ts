@@ -2,22 +2,31 @@ import {
     ActionsType,
     FollowActionType,
     SetCurrentPageActionType,
-    SetUsersActionType, setUsersTotalCountActionType, toggleIsFetchingActionType,
+    SetUsersActionType, setUsersTotalCountActionType, toggleIsFetchingActionType, toggleIsFollowingProgressActionType,
     UnFollowActionType,
-    UsersPageType,
     UserType
 } from "./types";
 
-let initialState = {
-    users: [],
+type UsersPageType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: number[]
+}
+
+let initialState: UsersPageType = {
+    users: [] as Array<UserType>,
     pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
+    followingInProgress: []
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
 
+export const usersReducer = (state = initialState, action: ActionsType): UsersPageType => {
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -55,6 +64,14 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {
                 ...state, isFetching: action.isFetching
             }
+        case "TOGGLE-IS-FOLLOWING-PROGRESS" :
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
+
         default:
             return state
     }
@@ -98,6 +115,13 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionTyp
     return {
         type: "TOGGLE-IS-FETCHING",
         isFetching
+    }
+}
+export const toggleIsFollowingProgress = (isFetching: boolean, userId: number): toggleIsFollowingProgressActionType => {
+    return {
+        type: "TOGGLE-IS-FOLLOWING-PROGRESS",
+        isFetching,
+        userId
     }
 }
 
