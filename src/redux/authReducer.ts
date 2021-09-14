@@ -1,4 +1,5 @@
 import {ActionsType, AuthType, SetUserDataActionType} from "./types";
+import {authAPI} from "../api/api";
 
 
 let initialState = {
@@ -31,6 +32,16 @@ export const setAuthUserData = (id: number, email:string, login:string): SetUser
         type: "SET-USER-DATA",
         data:{id, email, login}
     }
+}
+
+export const getAuthUserData = () => (dispatch: (action: ActionsType) => void) => {
+    authAPI.me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data
+                dispatch(setAuthUserData(id, email, login));
+            }
+        })
 }
 
 

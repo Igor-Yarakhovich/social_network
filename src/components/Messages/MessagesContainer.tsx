@@ -9,6 +9,7 @@ type mstpType = {
     messagesData: Array<MessageType>;
     newMessageText: string;
     dialogsData: Array<DialogType>
+    isAuth: boolean
 }
 
 type mdtpType = {
@@ -20,7 +21,8 @@ let mapStateToProps = (state: RootType): mstpType => {
     return {
         messagesData: state.messagesPage.messagesData,
         dialogsData: state.messagesPage.dialogsData,
-        newMessageText: state.messagesPage.newMessageText
+        newMessageText: state.messagesPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 

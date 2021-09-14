@@ -4,6 +4,7 @@ import m from './Messages.module.css'
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Message} from "./Message/Message";
 import {DialogType, MessageType} from "../../redux/types";
+import {Redirect} from "react-router";
 
 type MessagesType = {
     messagesData: Array<MessageType>
@@ -11,6 +12,7 @@ type MessagesType = {
     newMessageText: string
     addMessage: (newMessageText: string)=>void
     onMessageOnchange: (text:string)=>void
+    isAuth:boolean
 }
 export const Messages = (props: MessagesType) => {
     let messageElement = props.messagesData.map((d: MessageType) => <Dialogs key={d.id} name={d.name} id={d.id}/>)
@@ -24,6 +26,7 @@ export const Messages = (props: MessagesType) => {
         const text = e.currentTarget.value
         props.onMessageOnchange(text)
     }
+    if (!props.isAuth ) return <Redirect to={'/Login'}/>
     return (
         <div className={m.Messages}>
             <div className={m.Messages_text}>

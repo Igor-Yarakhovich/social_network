@@ -1,10 +1,9 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfileAC} from "../../redux/profileReducer";
+import {getUserProfile} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
-import {withRouter} from "react-router";
+import {Redirect, withRouter} from "react-router";
 
 type ProfileResponseType = {
     userId: number,
@@ -28,11 +27,12 @@ type ProfileResponseType = {
 }
 
 type mdtpType = {
-    setUserProfileAC: (profile: null) => void
+    getUserProfile: (userId: number) => void
 }
 
 type mstpType = {
     profile: null
+    isAuth:boolean
 }
 
 
@@ -43,12 +43,11 @@ class ProfileContainer extends React.Component<any, any> {
         if (!userId) {
             userId = 2
         }
-        axios.get<ProfileResponseType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
-            this.props.setUserProfileAC(response.data)
-        })
+        this.props.getUserProfile(userId)
     }
 
     render() {
+        if (!this.props.isAuth ) return <Redirect to='/Login'/>
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
@@ -56,10 +55,11 @@ class ProfileContainer extends React.Component<any, any> {
 }
 
 let mapStateToProps = (state: RootType): mstpType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 let WidthUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {setUserProfileAC})(WidthUrlDataContainerComponent)
+export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile})(WidthUrlDataContainerComponent)
 

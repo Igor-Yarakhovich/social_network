@@ -6,6 +6,7 @@ import {
     UpdateNewPostTextActionType
 } from "./types";
 import {v1} from "uuid";
+import {usersAPI} from "../api/api";
 
 let initialState = {
     newPostText: '',
@@ -62,4 +63,11 @@ export const setUserProfileAC = (profile:null): SetUserProfileActionType => {
         type: "SET-USER-PROFILE",
         profile
     }
+}
+
+
+export const getUserProfile = (userId:number)  => (dispatch: (action: ActionsType) => void) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfileAC(response.data))
+    })
 }
