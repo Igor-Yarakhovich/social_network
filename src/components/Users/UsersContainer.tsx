@@ -2,9 +2,12 @@ import {connect} from "react-redux";
 import {UserType} from "../../redux/types";
 import {RootType} from "../../redux/redux-store";
 import {follow, getUsers, setCurrentPage, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
-import React from "react";
+import React, {ComponentClass} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withRouter} from "react-router";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 export type mstpType = {
     users: Array<UserType>
@@ -69,11 +72,17 @@ let mapStateToProps = (state: RootType): mstpType => {
     }
 }
 
-export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {
-        follow,
-        unfollow,
-        setCurrentPage,
-        toggleIsFollowingProgress,
-        getUsers
-    }
+export default compose<ComponentClass>(
+    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {
+            follow,
+            unfollow,
+            setCurrentPage,
+            toggleIsFollowingProgress,
+            getUsers
+        }
+    ),
+    withRouter,
+    withAuthRedirect
 )(UsersContainer)
+
+

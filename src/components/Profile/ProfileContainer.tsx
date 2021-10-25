@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, ComponentClass, FunctionComponent, ReactElement} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profileReducer";
@@ -6,6 +6,7 @@ import {RootType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProfileType} from "../../redux/types";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from 'redux'
 
 
 type mdtpType = {
@@ -14,7 +15,7 @@ type mdtpType = {
 
 type mstpType = {
     profile: ProfileType | null
-    isAuth:boolean
+    isAuth: boolean
 }
 
 type PathParams = {
@@ -41,14 +42,15 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
 let mapStateToProps = (state: RootType): mstpType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth
 })
 
-let WidthUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+export default compose<ComponentClass>(
+    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
 
-export default connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile})(WidthUrlDataContainerComponent)
 

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {ComponentClass} from 'react';
 import {changeNewMessageTextAC, newMessageAC} from "../../redux/messagesReducer";
 import {connect} from "react-redux";
 import {RootType} from "../../redux/redux-store";
 import {Messages} from "./Messages";
 import {ActionsType, DialogType, MessageType} from "../../redux/types";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type mstpType = {
     messagesData: Array<MessageType>;
@@ -38,6 +39,8 @@ let mapDispatchToProps = (dispatch: (action: ActionsType) => void): mdtpType => 
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(Messages)
+export const MessagesContainer = compose<ComponentClass>(
+    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Messages)
 
-export const MessagesContainer = connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
