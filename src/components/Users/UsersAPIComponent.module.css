@@ -1,3 +1,7 @@
+.UserPage{
+    margin: 25px 0;
+}
+
 .userPhoto{
     width: 150px;
     height: 200px;
@@ -5,4 +9,21 @@
 
 .selectedPage{
     font-weight: bold;
+    cursor: pointer;
 }
+
+.numberPage{
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.numberUserPage{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.followUnfollow{
+    margin-left: 40px;
+}
+

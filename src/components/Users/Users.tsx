@@ -23,11 +23,10 @@ export const Users = (props: UsersPropsType) => {
         pages.push(i)
     }
 
-
     return <div>
-        <div>
+        <div className={styles.numberUserPage}>
             {pages.map(p => {
-                return <span className={(props.currentPage === p) ? styles.selectedPage : ''}
+                return <span className={(props.currentPage === p) ? styles.selectedPage : styles.numberPage}
                              onClick={(e) => {
                                  props.onPageChanged(p)
                              }}>{p}
@@ -35,15 +34,15 @@ export const Users = (props: UsersPropsType) => {
             })}
         </div>
         {
-            props.users.map(u => <div key={u.id}>
+            props.users.map(u => <div className={styles.UserPage} key={u.id}>
                     <span>
-                        <div>
+                        <div >
                             <NavLink to={'/Profile/' + u.id}>
                             <img src={u.photos.small != null ? u.photos.small : UserPhoto}
                                  className={styles.userPhoto} alt={'#'}/>
                             </NavLink>
                         </div>
-                        <div>
+                        <div className={styles.followUnfollow}>
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                                           onClick={() => {
@@ -55,7 +54,7 @@ export const Users = (props: UsersPropsType) => {
                                           }}>Follow</button>}
                         </div>
                     </span>
-                <span>
+                <span >
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -14,7 +14,7 @@ import {Login} from "./components/Login/Login";
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="app-wrapper">
                 <HeaderContainer/>
                 <Navbar/>
@@ -29,7 +29,7 @@ function App() {
 
                 </div>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
