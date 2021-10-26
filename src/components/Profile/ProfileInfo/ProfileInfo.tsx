@@ -1,7 +1,8 @@
 import React from 'react';
 import p from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfileType, UserType} from "../../../redux/types";
+import {ProfileType} from "../../../redux/types";
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile:ProfileType | null
@@ -19,7 +20,6 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
             ? <img src='https://www.svgrepo.com/show/42745/looking-for-job.svg' width='150px'/>
             : <img src='https://freesvg.org/img/nmj.png' width='150px'/>
         }
-
     }
     return (
         <div className={p.content}>
@@ -27,6 +27,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
             <div className={p.fullName}>{props.profile.fullName}</div>
             <span>{props.profile.lookingForAJobDescription}</span>
             <div>{JobsHandler()}</div>
+            <ProfileStatus status={"Hello my friends!"}/>
         </div>
     )
 }
