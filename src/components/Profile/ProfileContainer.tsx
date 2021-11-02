@@ -1,7 +1,7 @@
 import React, {ComponentClass} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, updateStatus} from "../../redux/profileReducer";
+import {getStatus, getUserProfile, setStatusAC, updateStatus} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProfileType} from "../../redux/types";
@@ -13,6 +13,7 @@ type mdtpType = {
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
+    setStatusAC: (status: string) => void
 
 }
 
@@ -38,8 +39,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         }
         this.props.getUserProfile(+userId)
         this.props.getStatus(+userId)
-
-
     }
 
     render() {
@@ -59,7 +58,7 @@ let mapStateToProps = (state: RootType): mstpType => ({
 })
 
 export default compose<ComponentClass>(
-    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile, getStatus, updateStatus, setStatusAC}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
