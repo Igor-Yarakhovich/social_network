@@ -1,3 +1,10 @@
+import {
+    AddPostActionType,
+    ProfilePageType, SetStatusActionType,
+    SetUserProfileActionType,
+    UpdateNewPostTextActionType
+} from "./profileReducer";
+
 export type MessageType = {
     name: string
     id: string
@@ -6,12 +13,6 @@ export type MessageType = {
 export type DialogType = {
     text: string
     id: string
-}
-
-export type PostsType = {
-    message: string
-    id: string
-    counts: number
 }
 
 export type SidebarType = {}
@@ -23,11 +24,7 @@ export type MessagesPageType = {
     newMessageText: string
 }
 
-export type ProfilePageType = {
-    newPostText: string
-    postsData: Array<PostsType>
-    profile: null
-}
+
 
 export type UserType = {
     name: string
@@ -68,14 +65,9 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
 
-export type SetUserProfileActionType = {
-    type: "SET-USER-PROFILE",
-    profile: null
-}
+
+
 
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -103,11 +95,6 @@ export type setUsersTotalCountActionType = {
 }
 
 
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-
 export type toggleIsFetchingActionType = {
     type: "TOGGLE-IS-FETCHING"
     isFetching: boolean
@@ -129,12 +116,7 @@ export type ChangeNewMessageType = {
     newMessage: string
 }
 
-export type AuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
+
 
 export type SetUserDataActionType = {
     type: "SET-USER-DATA"
@@ -168,3 +150,4 @@ export type ActionsType =
     | SetUserProfileActionType
     | SetUserDataActionType
     | toggleIsFollowingProgressActionType
+    | SetStatusActionType

@@ -1,12 +1,45 @@
-import {
-    ActionsType,
-    AddPostActionType,
-    ProfilePageType,
-    SetUserProfileActionType,
-    UpdateNewPostTextActionType
-} from "./types";
 import {v1} from "uuid";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
+import {ActionsType} from "./types";
+
+export type AuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type ProfilePageType = {
+    newPostText: string
+    postsData: Array<PostsType>
+    profile: null
+    status: string
+}
+
+export type PostsType = {
+    message: string
+    id: string
+    counts: number
+}
+
+export type SetUserProfileActionType = {
+    type: "SET-USER-PROFILE",
+    profile: null
+}
+
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type SetStatusActionType = {
+    type: 'SET-STATUS'
+    status: string
+}
 
 let initialState = {
     newPostText: '',
@@ -16,7 +49,8 @@ let initialState = {
         {message: 'Yo, Yo!', id: v1(), counts: 15},
         {message: "Hello!", id: v1(), counts: 45}
     ],
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
@@ -40,6 +74,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 profile: action.profile
             }
+        case "SET-STATUS":
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
     }
@@ -58,7 +97,14 @@ export const updateNewPosTextAC = (newText: string): UpdateNewPostTextActionType
     }
 }
 
-export const setUserProfileAC = (profile:null): SetUserProfileActionType => {
+export const setStatusAC = (status: string): SetStatusActionType => {
+    return {
+        type: "SET-STATUS",
+        status
+    }
+}
+
+export const setUserProfileAC = (profile: null): SetUserProfileActionType => {
     return {
         type: "SET-USER-PROFILE",
         profile
@@ -66,8 +112,21 @@ export const setUserProfileAC = (profile:null): SetUserProfileActionType => {
 }
 
 
-export const getUserProfile = (userId:number)  => (dispatch: (action: ActionsType) => void) => {
+export const getUserProfile = (userId: number) => (dispatch: (action: ActionsType) => void) => {
     usersAPI.getProfile(userId).then(response => {
         dispatch(setUserProfileAC(response.data))
+    })
+}
+
+export const getStatus = (userId: number) => (dispatch: (action: ActionsType) => void) => {
+    profileAPI.getStatus(userId).then(response => {
+        dispatch(setStatusAC(response.data))
+    })
+}
+export const updateStatus = (status: string) => (dispatch: (action: ActionsType) => void) => {
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
     })
 }

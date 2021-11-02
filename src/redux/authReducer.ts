@@ -1,5 +1,6 @@
-import {ActionsType, AuthType, SetUserDataActionType} from "./types";
+import {ActionsType,  SetUserDataActionType} from "./types";
 import {authAPI} from "../api/api";
+import {AuthType} from "./profileReducer";
 
 
 let initialState = {
