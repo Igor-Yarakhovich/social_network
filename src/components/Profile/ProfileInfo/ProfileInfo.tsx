@@ -29,7 +29,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
             <div className={p.fullName}>{props.profile.fullName}</div>
             <span>{props.profile.lookingForAJobDescription}</span>
             <div>{JobsHandler()}</div>
-            <ProfileStatus status={props.status}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </div>
     )
 }
