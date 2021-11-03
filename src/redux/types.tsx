@@ -1,6 +1,7 @@
 import {
     AddPostActionType,
-    ProfilePageType, SetStatusActionType,
+    ProfilePageType,
+    SetStatusActionType,
     SetUserProfileActionType,
     UpdateNewPostTextActionType
 } from "./profileReducer";
@@ -21,9 +22,8 @@ export type SidebarType = {}
 export type MessagesPageType = {
     messagesData: Array<MessageType>
     dialogsData: Array<DialogType>
-    newMessageText: string
+    // newMessageText: string
 }
-
 
 
 export type UserType = {
@@ -64,9 +64,6 @@ export type StateType = {
     profilePage: ProfilePageType
     sidebar: SidebarType
 }
-
-
-
 
 
 export type FollowActionType = {
@@ -115,7 +112,6 @@ export type ChangeNewMessageType = {
     type: 'CHANGE-NEW-MESSAGE'
     newMessage: string
 }
-
 
 
 export type SetUserDataActionType = {
