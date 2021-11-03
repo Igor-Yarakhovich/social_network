@@ -19,3 +19,6 @@ export let reducers = combineReducers({
 export let store: Store<RootType> = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type RootType = ReturnType<typeof reducers>
+
+//@ts-ignore
+window.store = store
