@@ -18,9 +18,9 @@ export const Messages = (props: MessagesType) => {
     let messageElement = props.messagesData.map((d: MessageType) => <Dialogs key={d.id} name={d.name} id={d.id}/>)
     let dialogElement = props.dialogsData.map((m: DialogType) => <Message key={m.id} text={m.text} id={m.id}/>)
 
-    const onSubmit = (formData: any) => {
-        console.log(formData)
-    }
+    // const onSubmit = (formData: any) => {
+    //     console.log(formData)
+    // }
     let addNewMessage = (value: any) => {
         props.addMessage(value.newMessageText)
     }
@@ -46,7 +46,7 @@ export const MessageForm = (props: MessageFormPropsType) => {
             <Field component='textarea' name='newMessageText' placeholder='Enter your message'/>
         </div>
         <div>
-            <button>Send message</button>
+            <button>Send</button>
         </div>
     </form>
 }

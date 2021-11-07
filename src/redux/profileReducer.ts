@@ -11,10 +11,10 @@ export type AuthType = {
 
 export type AddPostActionType = {
     type: 'ADD-POST'
+    newPostText:string
 }
 
 export type ProfilePageType = {
-    newPostText: string
     postsData: Array<PostsType>
     profile: null
     status: string
@@ -31,18 +31,12 @@ export type SetUserProfileActionType = {
     profile: null
 }
 
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-
 export type SetStatusActionType = {
     type: 'SET-STATUS'
     status: string
 }
 
 let initialState = {
-    newPostText: '',
     postsData: [
         {message: 'Hi, how are you?', id: v1(), counts: 15},
         {message: "It's my first post", id: v1(), counts: 45},
@@ -60,14 +54,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {
                 ...state,
                 postsData: [...state.postsData,
-                    {id: v1(), message: state.newPostText, counts: 0},
+                    {id: v1(), message: action.newPostText, counts: 0},
                 ],
-                newPostText: ''
-            }
-        case "UPDATE-NEW-POST-TEXT":
-            return {
-                ...state,
-                newPostText: action.newText
             }
         case "SET-USER-PROFILE":
             return {
@@ -84,16 +72,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export const addPostAC = (): AddPostActionType => {
+export const addPostAC = (newPostText:string): AddPostActionType => {
     return {
         type: "ADD-POST",
-    }
-}
-
-export const updateNewPosTextAC = (newText: string): UpdateNewPostTextActionType => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText
+        newPostText
     }
 }
 
