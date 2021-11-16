@@ -1,6 +1,7 @@
-import {ActionsType,  SetUserDataActionType} from "./types";
+import {ActionsType, SetUserDataActionType} from "./types";
 import {authAPI} from "../api/api";
 import {AuthType} from "./profileReducer";
+import {Dispatch} from "redux";
 
 
 let initialState = {
@@ -19,7 +20,6 @@ export const authReducer = (state: AuthType = initialState, action: ActionsType)
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
 
         default:
@@ -27,20 +27,38 @@ export const authReducer = (state: AuthType = initialState, action: ActionsType)
     }
 }
 
-
-export const setAuthUserData = (id: number, email:string, login:string): SetUserDataActionType => {
+export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): SetUserDataActionType => {
     return {
         type: "SET-USER-DATA",
-        data:{id, email, login}
+        data: {id, email, login, isAuth}
     }
 }
 
-export const getAuthUserData = () => (dispatch: (action: ActionsType) => void) => {
+export const getAuthUserData = () => (dispatch: Dispatch) => {
     authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login));
+                dispatch(setAuthUserData(id, email, login, true));
+            }
+        })
+}
+
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                //@ts-ignore
+                dispatch(getAuthUserData())
+            }
+        })
+}
+
+export const logout = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
             }
         })
 }

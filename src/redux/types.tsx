@@ -111,9 +111,10 @@ export type ChangeNewMessageType = {
 export type SetUserDataActionType = {
     type: "SET-USER-DATA"
     data: {
-        id: number | null
+        id:  null | number
         email: string | null,
         login: string | null,
+        isAuth: boolean,
     }
 }
 
