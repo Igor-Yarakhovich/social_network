@@ -4,7 +4,7 @@ import m from './Messages.module.css'
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Message} from "./Message/Message";
 import {DialogType, MessageType} from "../../redux/types";
-import {Field, reduxForm} from "redux-form";
+import {MessageReduxForm} from "./Message/AddMessageForm";
 
 type MessagesType = {
     messagesData: Array<MessageType>
@@ -37,20 +37,3 @@ export const Messages = (props: MessagesType) => {
     )
 }
 
-type MessageFormPropsType = {
-    handleSubmit: any
-}
-export const MessageForm = (props: MessageFormPropsType) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field component='textarea' name='newMessageText' placeholder='Enter your message'/>
-        </div>
-        <div>
-            <button>Send</button>
-        </div>
-    </form>
-}
-
-export const MessageReduxForm = reduxForm({
-    form: 'messageForm'
-})(MessageForm)
