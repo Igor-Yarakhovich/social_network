@@ -21,10 +21,11 @@ type mstpType = {
     profile: ProfileType | null
     isAuth: boolean
     status: string
+    authorizedUserId: number | null
 }
 
 type PathParams = {
-    userId: string
+    userId: any
 }
 type OwnPropsType = mstpType & mdtpType
 
@@ -35,10 +36,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = "18918"
+            userId = this.props.authorizedUserId
         }
-        this.props.getUserProfile(+userId)
-        this.props.getStatus(+userId)
+        this.props.getUserProfile(userId)
+        this.props.getStatus(userId)
     }
 
     render() {
@@ -54,7 +55,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 let mapStateToProps = (state: RootType): mstpType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id
 })
 
 export default compose<ComponentClass>(

@@ -2,9 +2,11 @@ import {Field, reduxForm} from "redux-form";
 import {required} from "../../utils/validators/validators";
 import {Input} from "../common/FormsControls/FormControls";
 import React from "react";
+import styles from './../common/FormsControls/FormControls.module.css'
 
 type LoginFormPropsType = {
     handleSubmit: any
+    error: string
 }
 export const LoginForm = (props: LoginFormPropsType) => {
     return <form onSubmit={props.handleSubmit}>
@@ -30,6 +32,10 @@ export const LoginForm = (props: LoginFormPropsType) => {
                    name={'rememberMe'}
                    type={'checkbox'}/> remember me
         </div>
+        {props.error && <div className={styles.formSummaryError}>
+            {props.error}
+        </div>
+        }
         <div>
             <button>Login</button>
         </div>
