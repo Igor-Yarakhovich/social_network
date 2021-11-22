@@ -1,5 +1,6 @@
 import {AddPostActionType, ProfilePageType, SetStatusActionType, SetUserProfileActionType} from "./profileReducer";
 
+
 export type MessageType = {
     name: string
     id: string
@@ -111,11 +112,14 @@ export type ChangeNewMessageType = {
 export type SetUserDataActionType = {
     type: "SET-USER-DATA"
     data: {
-        id:  null | number
+        id: null | number
         email: string | null,
         login: string | null,
         isAuth: boolean,
     }
+}
+export type SetInitialized = {
+    type: 'INITIALIZED_SUCCESS'
 }
 
 export  type StoreType = {
@@ -141,3 +145,4 @@ export type ActionsType =
     | SetUserDataActionType
     | toggleIsFollowingProgressActionType
     | SetStatusActionType
+    | SetInitialized

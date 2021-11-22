@@ -2,7 +2,7 @@ import {ActionsType, SetUserDataActionType} from "./types";
 import {authAPI} from "../api/api";
 import {AuthType} from "./profileReducer";
 import {Dispatch} from "redux";
-import {stopSubmit} from "redux-form";
+import {ActionTypes, stopSubmit} from "redux-form";
 
 
 let initialState = {
@@ -35,8 +35,8 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
     }
 }
 
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.me()
+export const getAuthUserData = () => (dispatch: Dispatch<any>) => {
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -45,12 +45,12 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
         })
 }
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
 
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
-                //@ts-ignore
+
                 dispatch(getAuthUserData())
             } else {
                 let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
