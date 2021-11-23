@@ -13,7 +13,8 @@ import {
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount, getUsers
+    getTotalUsersCount,
+    getUsersSuper
 } from "../../redux/userSelectors";
 
 export type mstpType = {
@@ -68,20 +69,10 @@ export class UsersContainer extends React.Component<UsersPropsType, UsersRespons
     }
 }
 
-// let mapStateToProps = (state: RootType): mstpType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
 let mapStateToProps = (state: RootType): mstpType => {
     console.log(state.usersPage.users)
     return {
-        users: getUsers(state),
+        users: getUsersSuper(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
