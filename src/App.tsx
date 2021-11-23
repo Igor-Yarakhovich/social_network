@@ -12,7 +12,6 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {RootType} from "./redux/redux-store";
-import {withRouter} from "react-router";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
@@ -49,18 +48,15 @@ class App extends React.Component<AppPropsType> {
                     </div>
                 </HashRouter>
             </div>
-
-
         );
     }
 }
 
-
-type MapStatePropsType ={
+type MapStatePropsType = {
     initialized: boolean
 }
 const MapStateToProps = (state: RootType): MapStatePropsType => ({initialized: state.app.initialized})
 
 export default compose<any>(connect(MapStateToProps, {initializeApp})(App))
-    // connect<MapStatePropsType, MapDispatchPropsType, {},g RootType>(MapStateToProps, {initializeApp})(App))
-   // export default connect(MapStateToProps, {initializeApp})(App);
+// connect<MapStatePropsType, MapDispatchPropsType, {},g RootType>(MapStateToProps, {initializeApp})(App))
+// export default connect(MapStateToProps, {initializeApp})(App);

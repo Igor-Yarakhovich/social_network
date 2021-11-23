@@ -10,7 +10,6 @@ let initialState = {
     initialized: false
 }
 
-
 export const appReducer = (state: AppType = initialState, action: ActionsType): AppType => {
 
     switch (action.type) {

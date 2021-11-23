@@ -1,13 +1,20 @@
 import {connect} from "react-redux";
 import {UserType} from "../../redux/types";
 import {RootType} from "../../redux/redux-store";
-import {follow, getUsers, setCurrentPage, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
+import {follow, requestUsers, setCurrentPage, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
 import React, {ComponentClass} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withRouter} from "react-router";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount, getUsers
+} from "../../redux/userSelectors";
 
 export type mstpType = {
     users: Array<UserType>
@@ -61,24 +68,35 @@ export class UsersContainer extends React.Component<UsersPropsType, UsersRespons
     }
 }
 
+// let mapStateToProps = (state: RootType): mstpType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
 let mapStateToProps = (state: RootType): mstpType => {
+    console.log(state.usersPage.users)
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
 export default compose<ComponentClass>(
-    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {
+    connect(mapStateToProps, {
             follow,
             unfollow,
             setCurrentPage,
             toggleIsFollowingProgress,
-            getUsers
+            getUsers:requestUsers
         }
     ),
     withRouter,
