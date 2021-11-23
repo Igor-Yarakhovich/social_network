@@ -3,6 +3,7 @@ import p from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../../../redux/types";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
     profile:ProfileType | null
@@ -29,7 +30,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
             <div className={p.fullName}>{props.profile.fullName}</div>
             <span>{props.profile.lookingForAJobDescription}</span>
             <div>{JobsHandler()}</div>
-            <ProfileStatus status={props.status}
+            <ProfileStatusWithHooks status={props.status}
                            updateStatus={props.updateStatus}
             />
         </div>
