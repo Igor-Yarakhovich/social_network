@@ -31,7 +31,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    logout: any
+    logout: () => void
 }
 
 const mapStateToProps = (state: RootType) => ({

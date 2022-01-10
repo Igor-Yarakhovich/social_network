@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEventHandler} from 'react';
 import m from './MyPosts.module.css'
 import {Post} from './Post/Post';
 import {PostsType} from "../../../redux/profileReducer";
@@ -13,7 +13,8 @@ type MyPostsType = {
 
 const maxLength10 = maxLengthCreator(10)
 
-export const MyPosts = (props: MyPostsType) => {
+export const MyPosts = React.memo((props: MyPostsType) => {
+
     let PostsDataElement = props.postsData.map((p: PostsType) => <Post key={p.id} message={p.message}
                                                                        counts={p.counts}/>)
 
@@ -30,10 +31,10 @@ export const MyPosts = (props: MyPostsType) => {
             </div>
         </div>
     )
-}
+})
 
 type AddNewPostTextPropsType = {
-    handleSubmit: any
+    handleSubmit: FormEventHandler<HTMLFormElement> | undefined
 }
 
 let AddNewPostForm = (props: AddNewPostTextPropsType) => {
