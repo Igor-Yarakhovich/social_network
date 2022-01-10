@@ -1,7 +1,7 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {logout} from "../../redux/authReducer";
+import {logoutTC} from "../../redux/authReducer";
 import {RootType} from "../../redux/redux-store";
 
 // type HeaderResponseType = {
@@ -39,4 +39,4 @@ const mapStateToProps = (state: RootType) => ({
     login: state.auth.login
 
 })
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootType>(mapStateToProps, {logout})(HeaderContainer)
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootType>(mapStateToProps, {logout: logoutTC})(HeaderContainer)

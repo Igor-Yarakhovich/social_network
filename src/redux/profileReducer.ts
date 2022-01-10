@@ -1,12 +1,5 @@
 import {profileAPI, usersAPI} from "../api/api";
 
-export type AuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
-
 type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof setStatusAC>
@@ -26,15 +19,6 @@ export type PostsType = {
     counts: number
 }
 
-export type SetUserProfileActionType = {
-    type: "SET-USER-PROFILE",
-    profile: null
-}
-
-export type SetStatusActionType = {
-    type: 'SET-STATUS'
-    status: string
-}
 
 let initialState = {
     postsData: [
@@ -77,6 +61,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
+
 export const addPostAC = (newPostText: string) => {
     return {
         type: "ADD_POST",
@@ -105,24 +90,20 @@ export const deletePostAC = (postId: number) => {
     } as const
 }
 
-export const getUserProfileTC = (userId: number) => (dispatch: (action: ActionsType) => void) => {
-    usersAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data))
-        })
+
+export const getUserProfileTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
+    let response = await usersAPI.getProfile(userId)
+    dispatch(setUserProfileAC(response.data))
 }
 
-export const getStatusTC = (userId: number) => (dispatch: (action: ActionsType) => void) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setStatusAC(response.data))
-        })
+export const getStatusTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(response.data))
 }
-export const updateStatusTC = (status: string) => (dispatch: (action: ActionsType) => void) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatusAC(status))
-            }
-        })
+
+export const updateStatusTC = (status: string) => async (dispatch: (action: ActionsType) => void) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
+    }
 }

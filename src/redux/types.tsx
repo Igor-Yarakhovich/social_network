@@ -1,4 +1,3 @@
-import {ProfilePageType, SetStatusActionType, SetUserProfileActionType} from "./profileReducer";
 
 
 export type MessageType = {
@@ -31,7 +30,6 @@ export type UserType = {
     }
     status: string | null
     followed: boolean
-
 }
 
 export type ProfileType = {
@@ -54,94 +52,10 @@ export type ProfileType = {
     }
 }
 
-export type StateType = {
-    messagesPage: MessagesPageType
-    profilePage: ProfilePageType
-    sidebar: SidebarType
-}
-
-
-export type FollowActionType = {
-    type: 'FOLLOW'
-    userId: number
-}
-
-export type UnFollowActionType = {
-    type: 'UNFOLLOW'
-    userId: number
-}
-
-export type SetUsersActionType = {
-    type: 'SET-USERS'
-    users: UserType[]
-}
-
-export type SetCurrentPageActionType = {
-    type: "SET-CURRENT-PAGE"
-    currentPage: number
-}
-
-export type setUsersTotalCountActionType = {
-    type: "SET-USERS-TOTAL-COUNT",
-    totalCount: number
-}
-
-
-export type toggleIsFetchingActionType = {
-    type: "TOGGLE-IS-FETCHING"
-    isFetching: boolean
-}
-
-export type toggleIsFollowingProgressActionType = {
-    type: "TOGGLE-IS-FOLLOWING-PROGRESS",
-    isFetching: boolean
-    userId: number
-}
-
 export type NewMessageType = {
     type: 'NEW-MESSAGE'
     newMessageText: string
 }
 
-export type ChangeNewMessageType = {
-    type: 'CHANGE-NEW-MESSAGE'
-    newMessage: string
-}
-
-
-export type SetUserDataActionType = {
-    type: "SET-USER-DATA"
-    data: {
-        id: null | number
-        email: string | null,
-        login: string | null,
-        isAuth: boolean,
-    }
-}
-export type SetInitialized = {
-    type: 'INITIALIZED_SUCCESS'
-}
-
-export  type StoreType = {
-    _state: StateType
-    _callSubscriber: () => void
-    changeNewMessage: (newMessage: string) => void
-    subscribe: (observer: () => void) => void
-    getState: () => StateType
-    dispatch: (action: ActionsType) => void
-}
-
 export type ActionsType =
     | NewMessageType
-    | ChangeNewMessageType
-    | FollowActionType
-    | UnFollowActionType
-    | SetUsersActionType
-    | SetCurrentPageActionType
-    | setUsersTotalCountActionType
-    | toggleIsFetchingActionType
-    | SetUserProfileActionType
-    | SetUserDataActionType
-    | toggleIsFollowingProgressActionType
-    | SetStatusActionType
-    | SetInitialized

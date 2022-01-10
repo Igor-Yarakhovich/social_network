@@ -1,7 +1,7 @@
 import React from 'react';
 import {LoginReduxForm} from "./LoginForm";
 import {connect} from "react-redux";
-import {login} from "../../redux/authReducer";
+import {loginTC} from "../../redux/authReducer";
 import {Redirect} from "react-router";
 import {RootType} from "../../redux/redux-store";
 
@@ -26,5 +26,5 @@ const Login = (props: LoginPropsType) => {
 const mapStateToProps = (state: RootType) => ({
     isAuth: state.auth.isAuth
 })
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps, {login: loginTC})(Login)
 
