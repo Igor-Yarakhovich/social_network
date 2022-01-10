@@ -1,4 +1,4 @@
-import {AddPostActionType, ProfilePageType, SetStatusActionType, SetUserProfileActionType} from "./profileReducer";
+import {ProfilePageType, SetStatusActionType, SetUserProfileActionType} from "./profileReducer";
 
 
 export type MessageType = {
@@ -132,7 +132,6 @@ export  type StoreType = {
 }
 
 export type ActionsType =
-    AddPostActionType
     | NewMessageType
     | ChangeNewMessageType
     | FollowActionType

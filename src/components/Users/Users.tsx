@@ -26,8 +26,8 @@ export const Users = (props: UsersPropsType) => {
     return <div>
         <div className={styles.numberUserPage}>
             {pages.map(p => {
-                return <span className={(props.currentPage === p) ? styles.selectedPage : styles.numberPage}
-                             onClick={(e) => {
+                return <span key={Math.random()} className={(props.currentPage === p) ? styles.selectedPage : styles.numberPage}
+                             onClick={() => {
                                  props.onPageChanged(p)
                              }}>{p}
                          </span>

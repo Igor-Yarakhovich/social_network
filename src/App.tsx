@@ -57,6 +57,6 @@ type MapStatePropsType = {
 }
 const MapStateToProps = (state: RootType): MapStatePropsType => ({initialized: state.app.initialized})
 
-export default compose<any>(connect(MapStateToProps, {initializeApp})(App))
+export default compose(connect(MapStateToProps, {initializeApp})(App))
 // connect<MapStatePropsType, MapDispatchPropsType, {},g RootType>(MapStateToProps, {initializeApp})(App))
 // export default connect(MapStateToProps, {initializeApp})(App);

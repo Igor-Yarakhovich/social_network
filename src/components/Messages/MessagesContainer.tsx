@@ -1,4 +1,4 @@
-import React, {ComponentClass} from 'react';
+import {ComponentClass} from 'react';
 import {newMessageAC} from "../../redux/messagesReducer";
 import {connect} from "react-redux";
 import {RootType} from "../../redux/redux-store";

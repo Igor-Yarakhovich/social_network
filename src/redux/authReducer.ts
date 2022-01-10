@@ -2,7 +2,7 @@ import {ActionsType, SetUserDataActionType} from "./types";
 import {authAPI} from "../api/api";
 import {AuthType} from "./profileReducer";
 import {Dispatch} from "redux";
-import {ActionTypes, stopSubmit} from "redux-form";
+import { stopSubmit} from "redux-form";
 
 
 let initialState = {

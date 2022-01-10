@@ -1,17 +1,18 @@
-import React from 'react';
-import {addPostAC} from "../../../redux/profileReducer";
+import {addPostAC, PostsType} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {RootType} from "../../../redux/redux-store";
-import {ActionsType} from "../../../redux/types";
+
 
 type mstpType = {
-    postsData: any;
+    postsData: Array<PostsType>;
 }
 
 type mdtpType = {
-    addPosts: (newPostText:string) => void
+    addPosts: (newPostText: string) => void
 }
+
+type ActionsType = ReturnType<typeof addPostAC>
 
 let mapStateToProps = (state: RootType): mstpType => {
     return {

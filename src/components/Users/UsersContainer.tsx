@@ -70,7 +70,7 @@ export class UsersContainer extends React.Component<UsersPropsType, UsersRespons
 }
 
 let mapStateToProps = (state: RootType): mstpType => {
-    console.log(state.usersPage.users)
+
     return {
         users: getUsersSuper(state),
         pageSize: getPageSize(state),
