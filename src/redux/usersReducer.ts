@@ -11,7 +11,7 @@ type UsersPageType = {
 
 let initialState = {
     users: [] as Array<UserType>,
-    pageSize: 20,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,

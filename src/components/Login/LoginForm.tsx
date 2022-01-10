@@ -1,11 +1,11 @@
 import {Field, reduxForm} from "redux-form";
 import {required} from "../../utils/validators/validators";
 import {Input} from "../common/FormsControls/FormControls";
-import React from "react";
+import React, {FormEventHandler} from "react";
 import styles from './../common/FormsControls/FormControls.module.css'
 
 type LoginFormPropsType = {
-    handleSubmit: any
+    handleSubmit: FormEventHandler<HTMLFormElement> | undefined
     error: string
 }
 export const LoginForm = (props: LoginFormPropsType) => {

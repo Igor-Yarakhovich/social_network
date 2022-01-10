@@ -3,6 +3,9 @@ import styles from "./UsersAPIComponent.module.css";
 import UserPhoto from "../../assets/images/UserPhoto.png";
 import {UserType} from "../../redux/types";
 import {NavLink} from "react-router-dom";
+import Pagination from "../Pagination/Pagination";
+import {useSelector} from "react-redux";
+import {RootType} from "../../redux/redux-store";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -16,23 +19,27 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-    let pages: number[] = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    // let pages: number[] = []
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
+    let totalUsersCount =useSelector<RootType, number>(state => state.usersPage.totalUsersCount)
+    let currentPage =useSelector<RootType, number>(state => state.usersPage.currentPage)
+    let pageSize =useSelector<RootType, number>(state => state.usersPage.pageSize)
 
     return <div>
-        <div className={styles.numberUserPage}>
-            {pages.map(p => {
-                return <span key={Math.random()} className={(props.currentPage === p) ? styles.selectedPage : styles.numberPage}
-                             onClick={() => {
-                                 props.onPageChanged(p)
-                             }}>{p}
-                         </span>
-            })}
-        </div>
+        {/*<div className={styles.numberUserPage}>*/}
+        {/*    {pages.map(p => {*/}
+        {/*        return <span key={Math.random()} className={(props.currentPage === p) ? styles.selectedPage : styles.numberPage}*/}
+        {/*                     onClick={() => {*/}
+        {/*                         props.onPageChanged(p)*/}
+        {/*                     }}>{p}*/}
+        {/*                 </span>*/}
+        {/*    })}*/}
+        {/*</div>*/}
+        <Pagination totalUsersCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}/>
         {
             props.users.map(u => <div className={styles.UserPage} key={u.id}>
                     <span>
