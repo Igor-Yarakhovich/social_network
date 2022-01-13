@@ -8,8 +8,8 @@ type LoginFormPropsType = {
     handleSubmit: FormEventHandler<HTMLFormElement> | undefined
     error: string
 }
-export const LoginForm = (props: LoginFormPropsType) => {
-    return <form onSubmit={props.handleSubmit}>
+export const LoginForm = ({handleSubmit, error}: LoginFormPropsType) => {
+    return <form onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'Email'}
                    name={'email'}
@@ -32,8 +32,8 @@ export const LoginForm = (props: LoginFormPropsType) => {
                    name={'rememberMe'}
                    type={'checkbox'}/> remember me
         </div>
-        {props.error && <div className={styles.formSummaryError}>
-            {props.error}
+        {error && <div className={styles.formSummaryError}>
+            {error}
         </div>
         }
         <div>
