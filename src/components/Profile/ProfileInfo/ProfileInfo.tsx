@@ -10,27 +10,27 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    if (!props.profile) {
+export const ProfileInfo = ({profile, status, updateStatus}: ProfileInfoPropsType) => {
+    if (!profile) {
         return <Preloader/>
     }
 
     const JobsHandler = () => {
-        if (props.profile) {
+        if (profile) {
 
-            return props.profile.lookingForAJob
+            return profile.lookingForAJob
                 ? <img alt='' src='https://www.svgrepo.com/show/42745/looking-for-job.svg' width='150px'/>
                 : <img alt='' src='https://freesvg.org/img/nmj.png' width='150px'/>
         }
     }
     return (
         <div className={p.content}>
-            <img alt='' src={props.profile.photos.large}/>
-            <div className={p.fullName}>{props.profile.fullName}</div>
-            <span>{props.profile.lookingForAJobDescription}</span>
+            <img alt='' src={profile.photos.large}/>
+            <div className={p.fullName}>{profile.fullName}</div>
+            <span>{profile.lookingForAJobDescription}</span>
             <div>{JobsHandler()}</div>
-            <ProfileStatusWithHooks status={props.status}
-                                    updateStatus={props.updateStatus}
+            <ProfileStatusWithHooks status={status}
+                                    updateStatus={updateStatus}
             />
         </div>
     )
