@@ -1,39 +1,52 @@
-import * as React from 'react';
-import TablePagination from '@mui/material/TablePagination';
-import {useDispatch} from 'react-redux';
-import {setCurrentPage, setTotalUsersCount} from "../../redux/usersReducer";
+import React, {useEffect, useState} from 'react';
+import styles from './Pagination.module.css'
+import {on} from "cluster";
 
 type PageCountPropsType = {
-    totalUsersCount: number,
+    totalItemsCount: number,
     currentPage: number,
     pageSize: number
+    onPageChanged: (p:number) => void
+    portionSize: number
 }
 
-export default function Pagination(props: PageCountPropsType) {
+export default function Pagination({totalItemsCount,
+                                       currentPage,
+                                       pageSize,
+                                       onPageChanged, portionSize}: PageCountPropsType) {
+    let pagesCount = Math.ceil(totalItemsCount / pageSize)
 
-    const dispatch = useDispatch()
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
+    useEffect(()=>setPortionNumber(Math.ceil(currentPage/portionSize)), [currentPage]);
 
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        dispatch(setCurrentPage(newPage))
-    };
+    let portionCount = Math.ceil(pagesCount / portionSize)
+    let [portionNumber, setPortionNumber] = useState<number>(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+    let rightPortionPageNumber = portionNumber * portionSize
 
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        dispatch(setTotalUsersCount(parseInt(event.target.value, 10)))
-    };
+    return <div className={styles.paginator}>
+        {portionNumber > 1 &&
+        <button onClick={() => {
+            setPortionNumber(portionNumber - 1)
+        }}>PREV</button>
+        }
+        {pages
+            .filter(p=>p>= leftPortionPageNumber && p<=rightPortionPageNumber)
+            .map((p)=>{
+            return <span className={e({
+                [styles.selectedPage]: currentPage === p
+            }, styles.pageNumber)}
+                         key={p}
+                         onClick={(e)=>{
+                         onPageChanged(p)}
+                         }>{p}</span>
 
-    return (
-        <TablePagination
-            component="div"
-            count={props.totalUsersCount}
-            page={props.currentPage}
-            onPageChange={handleChangePage}
-            rowsPerPage={props.pageSize}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-    );
+            })}
+        {portionCount > portionNumber &&
+            <button onClick={()=>{setPortionNumber(portionNumber+1)}}>NEXT</button>
+        }
+    </div>
 }

@@ -30,9 +30,6 @@ export const Users = ({
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    // let totalUsersCount = useSelector<RootType, number>(state => state.usersPage.totalUsersCount)
-    // let currentPage = useSelector<RootType, number>(state => state.usersPage.currentPage)
-    // let pageSize = useSelector<RootType, number>(state => state.usersPage.pageSize)
 
     return <div>
         <div className={styles.numberUserPage}>
@@ -45,7 +42,6 @@ export const Users = ({
                          </span>
             })}
         </div>
-        {/*<Pagination totalUsersCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}/>*/}
 
         {
             users.map(u => <User user={u}
