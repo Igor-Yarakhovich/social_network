@@ -10,8 +10,8 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {connect} from "react-redux";
-import {RootType} from "./redux/redux-store";
+import {connect, Provider} from "react-redux";
+import {RootType, store} from "./redux/redux-store";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
@@ -34,19 +34,19 @@ class App extends React.Component<AppPropsType> {
         return (
 
             <div className="app-wrapper">
-                <HashRouter>
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className="app-wrapper-content">
-                        <Route path={"/Message"} render={() => <MessagesContainer/>}/>
-                        <Route path={"/Profile/:userId?"} render={() => <ProfileContainer/>}/>
-                        <Route path={"/Users"} render={() => <UsersContainer/>}/>
-                        <Route path={"/News"} render={() => <News/>}/>
-                        <Route path={"/Music"} render={() => <Music/>}/>
-                        <Route path={"/Settings"} render={() => <Settings/>}/>
-                        <Route path={"/Login"} render={() => <Login/>}/>
-                    </div>
-                </HashRouter>
+
+                <HeaderContainer/>
+                <Navbar/>
+                <div className="app-wrapper-content">
+                    <Route path={"/Message"} render={() => <MessagesContainer/>}/>
+                    <Route path={"/Profile/:userId?"} render={() => <ProfileContainer/>}/>
+                    <Route path={"/Users"} render={() => <UsersContainer/>}/>
+                    <Route path={"/News"} render={() => <News/>}/>
+                    <Route path={"/Music"} render={() => <Music/>}/>
+                    <Route path={"/Settings"} render={() => <Settings/>}/>
+                    <Route path={"/Login"} render={() => <Login/>}/>
+                </div>
+
             </div>
         );
     }
@@ -57,6 +57,14 @@ type MapStatePropsType = {
 }
 const MapStateToProps = (state: RootType): MapStatePropsType => ({initialized: state.app.initialized})
 
-export default compose(connect(MapStateToProps, {initializeApp})(App))
+const AppContainer = compose(connect(MapStateToProps, {initializeApp})(App))
+
+export const MainApp = () => {
+    return <HashRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </HashRouter>
+}
 // connect<MapStatePropsType, MapDispatchPropsType, {},g RootType>(MapStateToProps, {initializeApp})(App))
 // export default connect(MapStateToProps, {initializeApp})(App);
