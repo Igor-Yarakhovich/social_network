@@ -10,7 +10,7 @@
 .selectedActivePage {
     font-weight: bold;
     border-color: black;
-
+    background-color: #819dff;
 }
 
 .selectedPage {

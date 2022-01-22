@@ -13,7 +13,8 @@ export default function Pagination({
                                        totalItemsCount,
                                        currentPage,
                                        pageSize,
-                                       onPageChanged, portionSize
+                                       onPageChanged,
+                                       portionSize
                                    }: PageCountPropsType) {
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
 
