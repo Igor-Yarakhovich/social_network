@@ -1,7 +1,7 @@
 import React from 'react';
 import {UserType} from "../../redux/types";
 import {User} from "./User";
-import styles  from './UsersAPIComponent.module.css';
+import Pagination from "../Pagination/Pagination";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -24,24 +24,26 @@ export const Users = ({
                           currentPage,
                           onPageChanged
                       }: UsersPropsType) => {
-    let pagesCount = Math.ceil(totalUsersCount / pageSize)
-
-    let pages: number[] = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    // let pagesCount = Math.ceil(totalUsersCount / pageSize)
+    //
+    // let pages: number[] = []
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
 
     return <div>
-        <div className={styles.numberUserPage}>
-            {pages.map(p => {
-                return <span key={Math.random()}
-                             className={(currentPage === p) ? styles.selectedPage : styles.numberPage}
-                             onClick={() => {
-                                 onPageChanged(p)
-                             }}>{p}
-                         </span>
-            })}
-        </div>
+        {/*<div className={styles.numberUserPage}>*/}
+        {/*    {pages.map(p => {*/}
+        {/*        return <span key={Math.random()}*/}
+        {/*                     className={(currentPage === p) ? styles.selectedPage : styles.numberPage}*/}
+        {/*                     onClick={() => {*/}
+        {/*                         onPageChanged(p)*/}
+        {/*                     }}>{p}*/}
+        {/*                 </span>*/}
+        {/*    })}*/}
+        {/*</div>*/}
+        <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}
+                    onPageChanged={onPageChanged} portionSize={10}/>
 
         {
             users.map(u => <User user={u}

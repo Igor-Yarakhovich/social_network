@@ -1,0 +1,22 @@
+
+.paginator {
+    margin: 10px;
+}
+.pageNumber {
+    padding: 2px;
+    border: 1px solid grey;
+}
+
+.selectedActivePage {
+    font-weight: bold;
+    border-color: black;
+
+}
+
+.selectedPage {
+    border: 1px solid;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 3px;
+    min-width: 15px;
+}
