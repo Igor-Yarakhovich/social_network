@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {HashRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {MessagesContainer} from "./components/Messages/MessagesContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -15,6 +14,16 @@ import {RootType, store} from "./redux/redux-store";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
+
+
+const MessagesContainer = React.lazy(() =>
+    import('./components/Messages/MessagesContainer')
+        .then(({MessagesContainer}) => ({default: MessagesContainer})));
+
+
+// const ProfileContainer = React.lazy(() =>
+//     import('./components/Profile/ProfileContainer')
+//         .then(({ProfileContainer}) => ({default: ProfileContainer})));
 
 type AppPropsType = {
     initializeApp: () => void
@@ -38,13 +47,15 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path={"/Message"} render={() => <MessagesContainer/>}/>
-                    <Route path={"/Profile/:userId?"} render={() => <ProfileContainer/>}/>
-                    <Route path={"/Users"} render={() => <UsersContainer/>}/>
-                    <Route path={"/News"} render={() => <News/>}/>
-                    <Route path={"/Music"} render={() => <Music/>}/>
-                    <Route path={"/Settings"} render={() => <Settings/>}/>
-                    <Route path={"/Login"} render={() => <Login/>}/>
+                    <Suspense fallback={<Preloader/>}>
+                        <Route path={"/Message"} render={() => <MessagesContainer/>}/>
+                        <Route path={"/Profile/:userId?"} render={() => <ProfileContainer/>}/>
+                        <Route path={"/Users"} render={() => <UsersContainer/>}/>
+                        <Route path={"/News"} render={() => <News/>}/>
+                        <Route path={"/Music"} render={() => <Music/>}/>
+                        <Route path={"/Settings"} render={() => <Settings/>}/>
+                        <Route path={"/Login"} render={() => <Login/>}/>
+                    </Suspense>
                 </div>
 
             </div>
