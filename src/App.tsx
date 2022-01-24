@@ -20,11 +20,6 @@ const MessagesContainer = React.lazy(() =>
     import('./components/Messages/MessagesContainer')
         .then(({MessagesContainer}) => ({default: MessagesContainer})));
 
-
-// const ProfileContainer = React.lazy(() =>
-//     import('./components/Profile/ProfileContainer')
-//         .then(({ProfileContainer}) => ({default: ProfileContainer})));
-
 type AppPropsType = {
     initializeApp: () => void
     initialized: boolean
