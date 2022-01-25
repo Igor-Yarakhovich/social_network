@@ -1,15 +1,17 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {ProfileType} from "./types";
 
 type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 export type ProfilePageType = {
     postsData: Array<PostsType>
-    profile: null
+    profile: any
     status: string
 }
 
@@ -56,6 +58,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 postsData: state.postsData.filter(p => p.id !== action.postId)
             }
+        case "SAVE_PHOTO_SUCCESS":
+            debugger
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
         default:
             return state
     }
@@ -76,7 +84,7 @@ export const setStatusAC = (status: string) => {
     } as const
 }
 
-export const setUserProfileAC = (profile: null) => {
+export const setUserProfileAC = (profile: ProfileType | null) => {
     return {
         type: "SET_USER_PROFILE",
         profile
@@ -87,6 +95,13 @@ export const deletePostAC = (postId: number) => {
     return {
         type: "DELETE_POST",
         postId
+    } as const
+}
+
+export const savePhotoSuccess = (photos: string | Blob) => {
+    return {
+        type: "SAVE_PHOTO_SUCCESS",
+        photos
     } as const
 }
 
@@ -105,5 +120,12 @@ export const updateStatusTC = (status: string) => async (dispatch: (action: Acti
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
+    }
+}
+
+export const savePhotoTC = (file: any) => async (dispatch: (action: ActionsType) => void) => {
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }

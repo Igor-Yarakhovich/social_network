@@ -1,7 +1,7 @@
 import React, {ComponentClass} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatusTC, getUserProfileTC, setStatusAC, updateStatusTC} from "../../redux/profileReducer";
+import {getStatusTC, getUserProfileTC, savePhotoTC, setStatusAC, updateStatusTC} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProfileType} from "../../redux/types";
@@ -14,7 +14,7 @@ type mdtpType = {
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
     setStatusAC: (status: string) => void
-
+    savePhoto:(file:string | Blob) => void
 }
 
 type mstpType = {
@@ -33,7 +33,7 @@ type ProfileContainerPropsType = RouteComponentProps<PathParams> & OwnPropsType
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
@@ -45,9 +45,21 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
-            <Profile {...this.props} profile={this.props.profile}
+            <Profile {...this.props}
+                     isOwner={!!this.props.match.params.userId}
+                     profile={this.props.profile}
                      status={this.props.status}
                      updateStatus={this.props.updateStatus}
             />
@@ -63,7 +75,13 @@ let mapStateToProps = (state: RootType): mstpType => ({
 })
 
 export default compose<ComponentClass>(
-    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {getUserProfile: getUserProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC, setStatusAC}),
+    connect<mstpType, mdtpType, {}, RootType>(mapStateToProps, {
+        getUserProfile: getUserProfileTC,
+        getStatus: getStatusTC,
+        updateStatus: updateStatusTC,
+        setStatusAC,
+        savePhoto : savePhotoTC
+    }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

@@ -8,12 +8,14 @@ type ProfilePropsType = {
     profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
 export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={p.content}>
             <ProfileInfo profile={props.profile}
+                         isOwner={props.isOwner}
                          status={props.status}
                          updateStatus={props.updateStatus}
             />

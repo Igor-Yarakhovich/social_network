@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./UsersAPIComponent.module.css";
-import UserPhoto from "../../assets/images/UserPhoto.png";
+import UserPhoto from "../../assets/images/UserAvatar.png";
 import {UserType} from "../../redux/types";
 import {NavLink} from "react-router-dom";
 
