@@ -46,6 +46,7 @@ export type ProfileType = {
     website: string
     youtube: string
     mainLink: string
+    aboutMe: string
     photos: {
         small: string
         large: string

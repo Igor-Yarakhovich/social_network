@@ -6,6 +6,8 @@ import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import UserPhoto from "../../../assets/images/UserAvatar.png";
 import {savePhotoTC} from "../../../redux/profileReducer";
 import {useDispatch} from "react-redux";
+import JobSearch from '../../../assets/images/Jobs-search.png'
+import NotMyJob from '../../../assets/images/not-my-job.jpg'
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -25,8 +27,8 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner}: ProfileInf
         if (profile) {
 
             return profile.lookingForAJob
-                ? <img alt='' src='https://www.svgrepo.com/show/42745/looking-for-job.svg' width='150px'/>
-                : <img alt='' src='https://freesvg.org/img/nmj.png' width='150px'/>
+                ? <img alt='' src={JobSearch} width='150px'/>
+                : <img alt='' src={NotMyJob} width='150px'/>
         }
     }
 
@@ -42,11 +44,23 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner}: ProfileInf
             <img alt='' src={profile.photos.large || UserPhoto}/>
             {!isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
             <div className={p.fullName}>{profile.fullName}</div>
-            <span>{profile.lookingForAJobDescription}</span>
-            <div>{JobsHandler()}</div>
+            <div>
+                <b>Looking for a job: </b> {profile.lookingForAJob ? 'YES' : 'NO'}
+            </div>
+            <div>
+                <b>About me: </b>{profile.aboutMe}
+            </div>
+            {profile.lookingForAJobDescription && <div>
+                <b>My professional skills: </b>{profile.lookingForAJobDescription}
+            </div>}
+            <div><b>Contacts : </b>{Object.keys(profile.contacts)}</div>
             <ProfileStatusWithHooks status={status}
                                     updateStatus={updateStatus}
             />
         </div>
     )
+}
+
+const Contact = (contactTitle: string, contactValue: string) => {
+    return <div><b>{contactTitle} : </b>{contactValue}</div>
 }
