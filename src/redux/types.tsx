@@ -1,5 +1,3 @@
-
-
 export type MessageType = {
     name: string
     id: string
@@ -32,26 +30,7 @@ export type UserType = {
     followed: boolean
 }
 
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: object
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-    aboutMe: string
-    photos: {
-        small: string
-        large: string
-    }
-}
+
 
 export type NewMessageType = {
     type: 'NEW-MESSAGE'

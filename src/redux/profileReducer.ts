@@ -1,5 +1,5 @@
 import {profileAPI, usersAPI} from "../api/api";
-import {ProfileType} from "./types";
+import {ProfileType} from "../components/Profile/ProfileInfo/ProfileInfo";
 
 type ActionsType =
     ReturnType<typeof addPostAC>
