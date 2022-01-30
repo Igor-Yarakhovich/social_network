@@ -1,7 +1,14 @@
 import React, {ComponentClass} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatusTC, getUserProfileTC, savePhotoTC, setStatusAC, updateStatusTC} from "../../redux/profileReducer";
+import {
+    getStatusTC,
+    getUserProfileTC,
+    savePhotoTC,
+    saveProfileTC,
+    setStatusAC,
+    updateStatusTC
+} from "../../redux/profileReducer";
 import {RootType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProfileType} from "./ProfileInfo/ProfileInfo";
@@ -15,6 +22,7 @@ type mdtpType = {
     updateStatus: (status: string) => void
     setStatusAC: (status: string) => void
     savePhoto:(file:string | Blob) => void
+    saveProfile:(profile: ProfileType) => void
 }
 
 type mstpType = {
@@ -81,7 +89,8 @@ export default compose<ComponentClass>(
         getStatus: getStatusTC,
         updateStatus: updateStatusTC,
         setStatusAC,
-        savePhoto : savePhotoTC
+        savePhoto : savePhotoTC,
+        saveProfile : saveProfileTC
     }),
     withRouter,
     withAuthRedirect

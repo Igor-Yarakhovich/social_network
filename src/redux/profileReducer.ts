@@ -1,5 +1,7 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {ProfileType} from "../components/Profile/ProfileInfo/ProfileInfo";
+import {stopSubmit} from "redux-form";
+import {Dispatch} from "redux";
 
 type ActionsType =
     ReturnType<typeof addPostAC>
@@ -107,25 +109,36 @@ export const savePhotoSuccess = (photos: string | Blob) => {
 
 
 export const getUserProfileTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
-    let response = await usersAPI.getProfile(userId)
+    const response = await usersAPI.getProfile(userId)
     dispatch(setUserProfileAC(response.data))
 }
 
 export const getStatusTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
-    let response = await profileAPI.getStatus(userId)
+    const response = await profileAPI.getStatus(userId)
     dispatch(setStatusAC(response.data))
 }
 
 export const updateStatusTC = (status: string) => async (dispatch: (action: ActionsType) => void) => {
-    let response = await profileAPI.updateStatus(status)
+    const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
     }
 }
 
 export const savePhotoTC = (file: any) => async (dispatch: (action: ActionsType) => void) => {
-    let response = await profileAPI.savePhoto(file)
+    const response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+
+export const saveProfileTC = (profile: ProfileType) => async (dispatch: any, getState: any) => {
+    const userId = getState().auth.id;
+    let response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfileTC(userId))
+    } else {
+        dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}));
+        return Promise.reject(response.data.messages[0]);
     }
 }
