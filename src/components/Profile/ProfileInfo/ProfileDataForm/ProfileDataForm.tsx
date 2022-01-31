@@ -16,11 +16,17 @@ type ProfileDataFormPropsType = {
 }
 
 const ProfileDataForm = ({handleSubmit, error, profile}: ProfileDataFormPropsType & ReduxFormType) => {
+    console.log(error)
     return <form onSubmit={handleSubmit}>
 
         <div>
             <button>save</button>
         </div>
+
+        {error && <div className={styles.formSummaryError}>
+            {error}
+        </div>
+        }
 
         <div>
             <b>Full name: </b>
@@ -59,25 +65,25 @@ const ProfileDataForm = ({handleSubmit, error, profile}: ProfileDataFormPropsTyp
         </div>
 
         <div><b>Contacts : </b>{Object.keys(profile.contacts).map((key) => {
-            return <div className={p.contact} key={key}>
-                <b>{key}: {
-                    <Field placeholder={key}
-                           name={'contacts' + key}
-                           validate={[]}
-                           component={Input}
-                    />
-                }</b>
-            </div>
+                return <div className={p.contact} key={key}>
+                    <b>{key}: {
+                        <Field placeholder={key}
+                               name={'contacts' + key}
+                               validate={[]}
+                               component={Input}
+                        />
+                    }</b>
+                </div>
+
             }
         )}</div>
 
-        {error && <div className={styles.formSummaryError}>
-            {error}
-        </div>
-        }
+
 
     </form>
+
 }
+
 
 const ProfileDataFormReduxForm = reduxForm<ReduxFormType, ProfileDataFormPropsType>({form: 'editProfile'})(ProfileDataForm)
 export default ProfileDataFormReduxForm

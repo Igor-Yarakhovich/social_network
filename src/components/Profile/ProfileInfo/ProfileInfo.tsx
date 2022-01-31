@@ -3,8 +3,6 @@ import p from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 import UserPhoto from "../../../assets/images/UserAvatar.png";
-import {savePhotoTC, saveProfileTC} from "../../../redux/profileReducer";
-import {useDispatch} from "react-redux";
 import ProfileDataForm from './ProfileDataForm/ProfileDataForm'
 import {ProfileData} from './ProfileData/ProfileData'
 
@@ -13,6 +11,8 @@ type ProfileInfoPropsType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
+    saveProfile: (profile: ProfileType) => void
+    savePhoto: (file: string | Blob) => void
 }
 
 export type ProfileType = {
@@ -39,24 +39,25 @@ export type ContactType = {
     mainLink: string
 }
 
-export const ProfileInfo = ({profile, status, updateStatus, isOwner}: ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile, status, updateStatus, isOwner, saveProfile, savePhoto}: ProfileInfoPropsType) => {
 
-    const dispatch = useDispatch()
+
     const [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader/>
     }
 
-    const onSubmit = (formData: any) => {
-        dispatch(saveProfileTC(formData))
-            setEditMode(false)
+    const onSubmit = async (formData: any) => {
+        saveProfile(formData)
+        await setEditMode(false)
     }
+
 
     const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files
         if (files) {
-            dispatch(savePhotoTC(files[0]))
+            savePhoto(files[0])
         }
     }
     return (
@@ -68,7 +69,6 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner}: ProfileInf
 
                 ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
                 : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
-
 
             <ProfileStatusWithHooks status={status}
                                     updateStatus={updateStatus}
