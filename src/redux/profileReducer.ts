@@ -1,7 +1,8 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {ProfileType} from "../components/Profile/ProfileInfo/ProfileInfo";
-import {stopSubmit} from "redux-form";
-import {Dispatch} from "redux";
+import {FormAction, stopSubmit} from "redux-form";
+import {ThunkDispatch} from "redux-thunk";
+import {RootType} from "./redux-store";
 
 type ActionsType =
     ReturnType<typeof addPostAC>
@@ -9,12 +10,14 @@ type ActionsType =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof setEditMode>
 
 
 export type ProfilePageType = {
     postsData: Array<PostsType>
     profile: any
     status: string
+    value: boolean
 }
 
 export type PostsType = {
@@ -32,7 +35,8 @@ let initialState = {
         {message: "Hello!", id: 4, counts: 45}
     ],
     profile: null,
-    status: ''
+    status: '',
+    value: false
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
@@ -61,10 +65,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 postsData: state.postsData.filter(p => p.id !== action.postId)
             }
         case "SAVE_PHOTO_SUCCESS":
-            debugger
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos}
+            }
+        case "SET_EDIT_MODE":
+            return {
+                ...state,
+                value: action.value
             }
         default:
             return state
@@ -107,6 +115,13 @@ export const savePhotoSuccess = (photos: string | Blob) => {
     } as const
 }
 
+export const setEditMode = (value: boolean) => {
+    return {
+        type: "SET_EDIT_MODE",
+        value
+    } as const
+}
+
 
 export const getUserProfileTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
     const response = await usersAPI.getProfile(userId)
@@ -132,13 +147,20 @@ export const savePhotoTC = (file: any) => async (dispatch: (action: ActionsType)
     }
 }
 
-export const saveProfileTC = (profile: ProfileType) => async (dispatch: any, getState: any) => {
-    const userId = getState().auth.id;
-    let response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfileTC(userId))
-    } else {
-        dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}));
-        return Promise.reject(response.data.messages[0]);
+export const saveProfileTC = (profile: ProfileType) =>
+    async (dispatch: ThunkDispatch<RootType, unknown, ActionsType | FormAction>, getState: () => RootType) => {
+        try {
+            const userId = getState().auth.id;
+            let response = await profileAPI.saveProfile(profile)
+            if (response.data.resultCode === 0) {
+                if (userId)
+                    await dispatch(getUserProfileTC(userId))
+                dispatch(setEditMode(false))
+            } else {
+                dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}));
+                return Promise.reject(response.data.messages[0]);
+            }
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
-}

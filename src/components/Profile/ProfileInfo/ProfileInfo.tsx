@@ -1,10 +1,13 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import p from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 import UserPhoto from "../../../assets/images/UserAvatar.png";
 import ProfileDataForm from './ProfileDataForm/ProfileDataForm'
 import {ProfileData} from './ProfileData/ProfileData'
+import {setEditMode} from "../../../redux/profileReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {RootType} from "../../../redux/redux-store";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -40,19 +43,19 @@ export type ContactType = {
 }
 
 export const ProfileInfo = ({profile, status, updateStatus, isOwner, saveProfile, savePhoto}: ProfileInfoPropsType) => {
+    const editMode = useSelector<RootType, boolean>(state => state.profilePage.value)
 
-
-    const [editMode, setEditMode] = useState(false)
+    const dispatch = useDispatch()
 
     if (!profile) {
         return <Preloader/>
     }
 
-    const onSubmit = async (formData: any) => {
+    const onSubmit = (formData: any) => {
         saveProfile(formData)
-        await setEditMode(false)
     }
 
+    const editModeFalseHandler = () => dispatch(setEditMode(true))
 
     const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files
@@ -68,7 +71,7 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, saveProfile
             {editMode
 
                 ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
-                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
+                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={editModeFalseHandler}/>}
 
             <ProfileStatusWithHooks status={status}
                                     updateStatus={updateStatus}
