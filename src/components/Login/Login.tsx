@@ -8,11 +8,12 @@ import {RootType} from "../../redux/redux-store";
 type LoginPropsType = {
     login: any
     isAuth: boolean
+    captchaUrl: string | null
 }
 
 const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: any) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl)
     }
 
     if (props.isAuth) {
@@ -20,10 +21,11 @@ const Login = (props: LoginPropsType) => {
     }
     return <div>
         <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
 }
 const mapStateToProps = (state: RootType) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 export default connect(mapStateToProps, {login: loginTC})(Login)

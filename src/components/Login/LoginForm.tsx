@@ -7,8 +7,14 @@ import styles from './../common/FormsControls/FormControls.module.css'
 type LoginFormPropsType = {
     handleSubmit: FormEventHandler<HTMLFormElement> | undefined
     error: string
+
 }
-export const LoginForm = ({handleSubmit, error}: LoginFormPropsType) => {
+
+type LoginPropsType = {
+    captchaUrl: string | null
+}
+
+export const LoginForm = ({handleSubmit, error, captchaUrl}: LoginFormPropsType & LoginPropsType) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'Email'}
@@ -32,16 +38,30 @@ export const LoginForm = ({handleSubmit, error}: LoginFormPropsType) => {
                    name={'rememberMe'}
                    type={'checkbox'}/> remember me
         </div>
-        {error && <div className={styles.formSummaryError}>
-            {error}
-        </div>
+
+        {captchaUrl && <img src={captchaUrl} alt=''/>}
+
+        {
+            captchaUrl &&
+                <Field placeholder={'Symbols from image'}
+                       component={Input}
+                       name={'captchaUrl'}
+                       validate={[required]}
+                />
         }
+
+        {
+            error && <div className={styles.formSummaryError}>
+                {error}
+            </div>
+        }
+
         <div>
             <button>Login</button>
         </div>
     </form>
 }
 
-export const LoginReduxForm = reduxForm({
+export const LoginReduxForm = reduxForm<LoginFormPropsType, LoginPropsType>({
     form: 'login'
 })(LoginForm)
