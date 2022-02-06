@@ -31,25 +31,25 @@ export default function Pagination({
 
     return <div className={styles.paginator}>
         {portionNumber > 1 &&
-        <button onClick={() => {
+        <button className={styles.paginatorButton} onClick={() => {
             setPortionNumber(portionNumber - 1)
-        }}>PREV</button>
+        }}>«</button>
         }
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => {
-                return <span
+                return <div
                     className={currentPage === p ? `${styles.selectedActivePage} ${styles.selectedPage}` : styles.selectedPage}
                     key={p}
-                    onClick={(e) => {
+                    onClick={() => {
                         onPageChanged(p)
                     }
-                    }>{p}</span>
+                    }><span>{p}</span></div>
             })}
         {portionCount > portionNumber &&
-        <button onClick={() => {
+        <button className={styles.paginatorButton} onClick={() => {
             setPortionNumber(portionNumber + 1)
-        }}>NEXT</button>
+        }}>»</button>
         }
     </div>
 }
