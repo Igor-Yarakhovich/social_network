@@ -3,7 +3,7 @@ import {LoginReduxForm} from "./LoginForm";
 import {connect} from "react-redux";
 import {loginTC} from "../../redux/authReducer";
 import {Redirect} from "react-router";
-import {RootType} from "../../redux/redux-store";
+import {RootType} from "../../redux/store";
 
 type LoginPropsType = {
     login: any

@@ -1,5 +1,3 @@
-import {ActionsType, SidebarType} from "./types";
-
 let initialState = {}
 
 export const sidebarReducer = (state: SidebarType = initialState, action: ActionsType): SidebarType => {
@@ -7,3 +5,8 @@ export const sidebarReducer = (state: SidebarType = initialState, action: Action
 
     return state
 }
+
+
+type SidebarType = {}
+type ActionsType = {}
+

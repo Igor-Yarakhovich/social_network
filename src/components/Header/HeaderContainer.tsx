@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {logoutTC} from "../../redux/authReducer";
-import {RootType} from "../../redux/redux-store";
+import {RootType} from "../../redux/store";
 
 // type HeaderResponseType = {
 //     resultCode: number

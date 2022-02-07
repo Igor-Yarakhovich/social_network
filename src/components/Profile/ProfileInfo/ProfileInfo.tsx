@@ -7,7 +7,7 @@ import ProfileDataForm from './ProfileDataForm/ProfileDataForm'
 import {ProfileData} from './ProfileData/ProfileData'
 import {setEditMode} from "../../../redux/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {RootType} from "../../../redux/redux-store";
+import {RootType} from "../../../redux/store";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null

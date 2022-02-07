@@ -1,21 +1,8 @@
-export type MessageType = {
-    name: string
-    id: string
-}
-
-export type DialogType = {
-    text: string
-    id: string
-}
-
-export type SidebarType = {}
 
 
-export type MessagesPageType = {
-    messagesData: Array<MessageType>
-    dialogsData: Array<DialogType>
-    // newMessageText: string
-}
+
+
+
 
 
 export type UserType = {
@@ -31,11 +18,3 @@ export type UserType = {
 }
 
 
-
-export type NewMessageType = {
-    type: 'NEW-MESSAGE'
-    newMessageText: string
-}
-
-export type ActionsType =
-    | NewMessageType

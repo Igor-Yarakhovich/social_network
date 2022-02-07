@@ -1,7 +1,7 @@
 import {addPostAC, PostsType} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
-import {RootType} from "../../../redux/redux-store";
+import {RootType} from "../../../redux/store";
 
 
 type mstpType = {

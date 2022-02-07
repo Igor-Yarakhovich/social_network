@@ -2,29 +2,7 @@ import {profileAPI, usersAPI} from "../api/api";
 import {ProfileType} from "../components/Profile/ProfileInfo/ProfileInfo";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkDispatch} from "redux-thunk";
-import {RootType} from "./redux-store";
-
-type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof setStatusAC>
-    | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof deletePostAC>
-    | ReturnType<typeof savePhotoSuccess>
-    | ReturnType<typeof setEditMode>
-
-
-export type ProfilePageType = {
-    postsData: Array<PostsType>
-    profile: any
-    status: string
-    value: boolean
-}
-
-export type PostsType = {
-    message: string
-    id: number
-    counts: number
-}
+import {RootType} from "./store";
 
 
 let initialState = {
@@ -80,6 +58,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 
 
+//Action
 export const addPostAC = (newPostText: string) => {
     return {
         type: "ADD_POST",
@@ -123,27 +102,45 @@ export const setEditMode = (value: boolean) => {
 }
 
 
+//Thunk
 export const getUserProfileTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
-    const response = await usersAPI.getProfile(userId)
-    dispatch(setUserProfileAC(response.data))
-}
-
-export const getStatusTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
-    const response = await profileAPI.getStatus(userId)
-    dispatch(setStatusAC(response.data))
-}
-
-export const updateStatusTC = (status: string) => async (dispatch: (action: ActionsType) => void) => {
-    const response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatusAC(status))
+    try {
+        const response = await usersAPI.getProfile(userId)
+        dispatch(setUserProfileAC(response.data))
+    } catch (error) {
+        console.log(error)
     }
 }
 
+export const getStatusTC = (userId: number) => async (dispatch: (action: ActionsType) => void) => {
+    try {
+        const response = await profileAPI.getStatus(userId)
+        dispatch(setStatusAC(response.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateStatusTC = (status: string) => async (dispatch: (action: ActionsType) => void) => {
+    try {
+        const response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
 export const savePhotoTC = (file: any) => async (dispatch: (action: ActionsType) => void) => {
-    const response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+    try {
+        const response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -164,3 +161,28 @@ export const saveProfileTC = (profile: ProfileType) =>
             return Promise.reject(err);
         }
     }
+
+
+//Types
+type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof setEditMode>
+
+
+export type ProfilePageType = {
+    postsData: Array<PostsType>
+    profile: any
+    status: string
+    value: boolean
+}
+
+export type PostsType = {
+    message: string
+    id: number
+    counts: number
+}
+

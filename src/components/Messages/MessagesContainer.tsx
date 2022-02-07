@@ -1,9 +1,8 @@
 import {ComponentClass} from 'react';
-import {newMessageAC} from "../../redux/messagesReducer";
+import {ActionsType, newMessageAC} from "../../redux/messagesReducer";
 import {connect} from "react-redux";
-import {RootType} from "../../redux/redux-store";
+import {RootType} from "../../redux/store";
 import {Messages} from "./Messages";
-import {ActionsType, DialogType, MessageType} from "../../redux/types";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
@@ -11,6 +10,16 @@ type mstpType = {
     messagesData: Array<MessageType>;
     dialogsData: Array<DialogType>
     isAuth: boolean
+}
+
+export type DialogType = {
+    text: string
+    id: string
+}
+
+export type MessageType = {
+    name: string
+    id: string
 }
 
 type mdtpType = {

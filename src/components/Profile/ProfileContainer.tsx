@@ -9,7 +9,7 @@ import {
     setStatusAC,
     updateStatusTC
 } from "../../redux/profileReducer";
-import {RootType} from "../../redux/redux-store";
+import {RootType} from "../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ProfileType} from "./ProfileInfo/ProfileInfo";
 import {withAuthRedirect} from "../../hoc/WithAuthRedirect";

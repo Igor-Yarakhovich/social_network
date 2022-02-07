@@ -1,16 +1,6 @@
 import {Dispatch} from "redux";
 import {getAuthUserDataTC} from "./authReducer";
 
-type ActionsType =
-    ReturnType<typeof initializedSuccess>
-
-type AppType = {
-    initialized: boolean
-}
-
-let initialState = {
-    initialized: false
-}
 
 export const appReducer = (state: AppType = initialState, action: ActionsType): AppType => {
 
@@ -24,16 +14,36 @@ export const appReducer = (state: AppType = initialState, action: ActionsType): 
     }
 }
 
+
+//Action
 export const initializedSuccess = () => {
     return {
         type: "INITIALIZED_SUCCESS",
     } as const
 }
 
+//Thunk
 export const initializeApp = () => (dispatch: Dispatch<any>) => {
-    let promise = dispatch(getAuthUserDataTC())
-    Promise.all([promise]).then(()=>{
-        dispatch(initializedSuccess())
-    })
+    try {
+        let promise = dispatch(getAuthUserDataTC())
+        Promise.all([promise]).then(() => {
+            dispatch(initializedSuccess())
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+//Types
+type ActionsType =
+    ReturnType<typeof initializedSuccess>
+
+type AppType = {
+    initialized: boolean
+}
+
+let initialState = {
+    initialized: false
 }
 

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {UserType} from "../../redux/types";
-import {RootType} from "../../redux/redux-store";
+import {RootType} from "../../redux/store";
 import {follow, requestUsers, setCurrentPage, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
 import React, {ComponentClass} from "react";
 import {Users} from "./Users";

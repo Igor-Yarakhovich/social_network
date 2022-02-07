@@ -1,4 +1,4 @@
-import {RootType} from "./redux-store";
+import {RootType} from "./store";
 import {createSelector} from 'reselect'
 
 

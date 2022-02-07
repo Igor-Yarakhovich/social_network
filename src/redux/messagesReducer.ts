@@ -1,4 +1,4 @@
-import {ActionsType, MessagesPageType, NewMessageType} from "./types";
+import {DialogType,  MessageType} from "../components/Messages/MessagesContainer";
 import {v1} from "uuid";
 
 let initialState = {
@@ -30,9 +30,27 @@ export const messagesReducer = (state: MessagesPageType = initialState, action: 
     }
 }
 
+
+//Action
 export const newMessageAC = (newMessageText: string): NewMessageType => {
     return {
         type: 'NEW-MESSAGE',
         newMessageText
     }
 }
+
+
+//Types
+export type NewMessageType = {
+    type: 'NEW-MESSAGE'
+    newMessageText: string
+}
+
+export type ActionsType =
+    | NewMessageType
+
+export type MessagesPageType = {
+    messagesData: Array<MessageType>
+    dialogsData: Array<DialogType>
+}
+

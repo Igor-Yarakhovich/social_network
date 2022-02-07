@@ -1,13 +1,5 @@
 import {usersAPI} from "../api/api";
 
-type UsersPageType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: number[]
-}
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -16,26 +8,6 @@ let initialState = {
     currentPage: 1,
     isFetching: true,
     followingInProgress: []
-}
-
-type ActionsType = ReturnType<typeof followSuccess>
-    | ReturnType<typeof unfollowSuccess>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof toggleIsFollowingProgress>
-
-type UserType = {
-    name: string
-    id: number
-    uniqueUrlName: null | string
-    photos: {
-        small: string
-        large: string
-    }
-    status: string | null
-    followed: boolean
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
@@ -90,6 +62,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
 }
 
 
+//Action
 export const followSuccess = (userId: number) => {
     return {
         type: "FOLLOW",
@@ -141,35 +114,79 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
 }
 
 
+//Thunk
 export const requestUsers = (currentPage: number, pageSize: number) => {
     return async (dispatch: (action: ActionsType) => void) => {
         dispatch(toggleIsFetching(true))
-        let data = await usersAPI.getUsers(currentPage, pageSize)
-        dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
-        dispatch(setCurrentPage(currentPage))
+        try {
+            let data = await usersAPI.getUsers(currentPage, pageSize)
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(setCurrentPage(currentPage))
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
 export const follow = (userId: number) => {
     return async (dispatch: (action: ActionsType) => void) => {
         dispatch(toggleIsFollowingProgress(true, userId))
-        let data = await usersAPI.followUsers(userId)
-        if (data.resultCode === 0) {
-            dispatch(followSuccess(userId))
+        try {
+            let data = await usersAPI.followUsers(userId)
+            if (data.resultCode === 0) {
+                dispatch(followSuccess(userId))
+            }
+            dispatch(toggleIsFollowingProgress(false, userId))
+        } catch (error) {
+            console.log(error)
         }
-        dispatch(toggleIsFollowingProgress(false, userId))
     }
 }
 
 export const unfollow = (userId: number) => {
     return async (dispatch: (action: ActionsType) => void) => {
         dispatch(toggleIsFollowingProgress(true, userId))
-        let data = await usersAPI.unfollowUsers(userId)
-        if (data.resultCode === 0) {
-            dispatch(unfollowSuccess(userId))
+        try {
+            let data = await usersAPI.unfollowUsers(userId)
+            if (data.resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+            }
+            dispatch(toggleIsFollowingProgress(false, userId))
+        } catch (error) {
+            console.log(error)
         }
-        dispatch(toggleIsFollowingProgress(false, userId))
     }
+}
+
+
+//Types
+type ActionsType = ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleIsFollowingProgress>
+
+type UserType = {
+    name: string
+    id: number
+    uniqueUrlName: null | string
+    photos: {
+        small: string
+        large: string
+    }
+    status: string | null
+    followed: boolean
+}
+
+type UsersPageType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: number[]
 }
