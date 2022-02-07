@@ -7,7 +7,7 @@ const getUsers = (state: RootType) => {
 }
 
 export const getUsersSuper = createSelector(getUsers, users => {
-    return users.filter(u => true)
+    return users.filter(() => true)
 })
 
 export const getPageSize = (state: RootType) => {
