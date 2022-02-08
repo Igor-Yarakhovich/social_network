@@ -1,6 +1,7 @@
 import p from "../ProfileInfo.module.css";
 import React from "react";
 import {ContactType, ProfileType} from "../ProfileInfo";
+import SuperButton from "../../../../assets/superButton/SuperButton";
 
 type ProfileDataPropsType = {
     profile: ProfileType
@@ -11,7 +12,7 @@ type ProfileDataPropsType = {
 export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => {
     return <div>
         {isOwner && <div>
-            <button onClick={goToEditMode}>edit</button>
+            <SuperButton onClick={goToEditMode}>edit</SuperButton>
         </div>}
         <div className={p.fullName}>{profile.fullName}</div>
 

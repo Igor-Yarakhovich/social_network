@@ -16,7 +16,7 @@
     object-position: center;
 }
 
-.loginBlock{
+.loginBlock {
     float: right;
     margin: 10px 10px 0 0;
 }
@@ -24,3 +24,20 @@
 .loginBlock a {
     color: white;
 }
+
+/*.button {*/
+/*    text-decoration: none;*/
+/*    position: relative;*/
+/*    margin-top: 140px;*/
+/*    padding: 5px;*/
+/*    background: #f6ba82;*/
+/*    transition-duration: 0.4s;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.button :hover {*/
+/*    background-color: black;*/
+/*    color: white;*/
+/*    text-decoration: none;*/
+/*}*/

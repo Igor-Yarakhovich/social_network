@@ -3,7 +3,7 @@
     margin-top: 7px;
     margin-right: 7px;
     grid-area: nav;
-    background: linear-gradient(to right, rgb(191, 201, 255), white);
+    background-color: white;
     border-radius: 25px;
 }
 .item a{

@@ -4,6 +4,7 @@ import {Input, Textarea} from "../../../common/FormsControls/FormControls";
 import {Field, reduxForm} from "redux-form";
 import p from '../ProfileInfo.module.css'
 import styles from "../../../common/FormsControls/FormControls.module.css";
+import SuperButton from "../../../../assets/superButton/SuperButton";
 
 type ReduxFormType = {
     handleSubmit: FormEventHandler<HTMLFormElement> | undefined
@@ -22,7 +23,7 @@ const ProfileDataForm = (props: ProfileDataFormPropsType & ReduxFormType) => {
     return <form onSubmit={handleSubmit}>
 
         <div>
-            <button>save</button>
+            <SuperButton>save</SuperButton>
         </div>
 
         {error && <div className={styles.formSummaryError}>
