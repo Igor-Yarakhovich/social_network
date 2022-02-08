@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {UserType} from "../../redux/types";
+
 import {RootType} from "../../redux/store";
 import {follow, requestUsers, setCurrentPage, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
 import React, {ComponentClass} from "react";
@@ -41,6 +41,18 @@ type UsersResponseType = {
     items: Array<UserType>
     totalCount: number
     error: string
+}
+
+export type UserType = {
+    name: string
+    id: number
+    uniqueUrlName: null | string
+    photos: {
+        small: string
+        large: string
+    }
+    status: string | null
+    followed: boolean
 }
 
 export class UsersContainer extends React.Component<UsersPropsType, UsersResponseType> {

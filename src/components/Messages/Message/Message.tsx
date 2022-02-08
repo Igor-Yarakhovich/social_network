@@ -3,7 +3,6 @@ import React from 'react';
 import m from './Message.module.css'
 
 
-
 type MessagePropsType = {
     id:string
     text: string

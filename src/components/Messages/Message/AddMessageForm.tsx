@@ -10,7 +10,9 @@ type MessageFormPropsType = {
 const maxLength50 = maxLengthCreator(50)
 
 export const AddMessageForm = (props: MessageFormPropsType) => {
+
     return <form onSubmit={props.handleSubmit}>
+
         <div>
             <Field component={Textarea}
                    validate={[required, maxLength50]}

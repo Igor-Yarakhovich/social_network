@@ -35,6 +35,7 @@ let mapStateToProps = (state: RootType): mstpType => {
 }
 
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void): mdtpType => {
+
     return {
         addMessage: (newMessageText: string) => {
             dispatch(newMessageAC(newMessageText))
