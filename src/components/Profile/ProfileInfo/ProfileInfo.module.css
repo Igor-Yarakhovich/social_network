@@ -16,6 +16,7 @@
     margin-top: 20px;
 }
 .photo img {
+    max-width: 300px;
     object-fit: cover;
     object-position: center;
 }

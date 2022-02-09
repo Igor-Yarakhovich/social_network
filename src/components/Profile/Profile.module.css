@@ -1,7 +1,8 @@
 .content div img{
- max-width: 100%;
+ max-width: 300px;
  border-radius: 25px;
-
+ object-fit: cover;
+ object-position: center;
 }
 
 

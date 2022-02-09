@@ -25,19 +25,8 @@
     color: white;
 }
 
-/*.button {*/
-/*    text-decoration: none;*/
-/*    position: relative;*/
-/*    margin-top: 140px;*/
-/*    padding: 5px;*/
-/*    background: #f6ba82;*/
-/*    transition-duration: 0.4s;*/
-/*    border-radius: 5px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.button :hover {*/
-/*    background-color: black;*/
-/*    color: white;*/
-/*    text-decoration: none;*/
-/*}*/
+.nameUser {
+    font-size: 17px;
+    color: #2a5885;
+    font-weight: 600;
+}

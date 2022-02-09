@@ -18,7 +18,7 @@ export const Header = (props: HeaderPropsType) => {
                  alt="logo website, website icon with png and vector format for unlimited"/>
             <div className={h.loginBlock}>
                 {props.isAuth
-                    ? <div>{props.login} - <SuperButton onClick={props.logout}>Log out</SuperButton></div>
+                    ? <div className={h.nameUser}>{props.login} - <SuperButton onClick={props.logout}>Log out</SuperButton></div>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>

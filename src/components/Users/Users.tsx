@@ -2,6 +2,7 @@ import React from 'react';
 import {UserType} from "./UsersContainer";
 import {User} from "./User";
 import Pagination from "../Pagination/Pagination";
+import styles from './UsersAPIComponent.module.css'
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -25,15 +26,19 @@ export const Users = ({
                           onPageChanged
                       }: UsersPropsType) => {
     return <div>
-        <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}
-                    onPageChanged={onPageChanged} portionSize={10}/>
-        {
-            users.map(u => <User user={u}
-                                 follow={follow}
-                                 unfollow={unfollow}
-                                 followingInProgress={followingInProgress}
-                                 key={u.id}
-            />)
-        }
+        <div className={styles.pagination}>
+            <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}
+                        onPageChanged={onPageChanged} portionSize={10}/>
+        </div>
+        <div className={styles.userContainer}>
+            {
+                users.map(u => <User user={u}
+                                     follow={follow}
+                                     unfollow={unfollow}
+                                     followingInProgress={followingInProgress}
+                                     key={u.id}
+                />)
+            }
+        </div>
     </div>
 }
