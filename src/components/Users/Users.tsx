@@ -30,7 +30,7 @@ export const Users = ({
             <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} pageSize={pageSize}
                         onPageChanged={onPageChanged} portionSize={10}/>
         </div>
-        <div className={styles.userContainer}>
+        <div className={styles.usersContainer}>
             {
                 users.map(u => <User user={u}
                                      follow={follow}

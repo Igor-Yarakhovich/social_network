@@ -1,1 +1,40 @@
-.news{}
+.news{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.news :hover {
+    background-color: skyblue;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.item {
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 20px;
+    color: #2a5885;
+    font-weight: 700;
+}
+
+.content{
+    display: flex;
+    padding-top: 15px;
+    align-items: center;
+}
+
+.content img {
+    max-width: 250px;
+}
+
+.text {
+    margin-left: 15px;
+    font-size: 17px;
+    color: #818c99;
+    font-weight: 400;
+}

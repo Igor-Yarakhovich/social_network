@@ -23,22 +23,20 @@ export const User = ({user, followingInProgress, unfollow, follow}: UserPropsTyp
                          className={styles.userPhoto} alt={'#'}/>
                 </NavLink>
             </div>
-            <div className={styles.userContent}>
-                <div className={styles.value}>
-                    <div>{user.name}</div>
-                    <div>{user.status}</div>
-                </div>
-                <div className={styles.followUnfollow}>
-                    {user.followed
-                        ? <SuperButton disabled={followingInProgress.some(id => id === user.id)}
-                                       onClick={() => {
-                                           unfollow(user.id)
-                                       }}>UnFollow</SuperButton>
-                        : <SuperButton disabled={followingInProgress.some(id => id === user.id)}
-                                       onClick={() => {
-                                           follow(user.id)
-                                       }}>Follow</SuperButton>}
-                </div>
+            <div className={styles.value}>
+                <div>{user.name}</div>
+                <div>{user.status}</div>
+            </div>
+            <div className={styles.followUnfollow}>
+                {user.followed
+                    ? <SuperButton disabled={followingInProgress.some(id => id === user.id)}
+                                   onClick={() => {
+                                       unfollow(user.id)
+                                   }}>UnFollow</SuperButton>
+                    : <SuperButton disabled={followingInProgress.some(id => id === user.id)}
+                                   onClick={() => {
+                                       follow(user.id)
+                                   }}>Follow</SuperButton>}
             </div>
         </div>
 
