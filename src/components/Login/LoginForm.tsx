@@ -3,6 +3,8 @@ import {required} from "../../utils/validators/validators";
 import {Input} from "../common/FormsControls/FormControls";
 import React, {FormEventHandler} from "react";
 import styles from './../common/FormsControls/FormControls.module.css'
+import SuperButton from "../../assets/superButton/SuperButton";
+import style from './Login.module.css'
 
 type LoginFormPropsType = {
     handleSubmit: FormEventHandler<HTMLFormElement> | undefined
@@ -33,21 +35,22 @@ export const LoginForm = ({handleSubmit, error, captchaUrl}: LoginFormPropsType 
             />
 
         </div>
-        <div>
+        <div className={style.text}>
             <Field component={Input}
                    name={'rememberMe'}
-                   type={'checkbox'}/> remember me
+                   type={'checkbox'}/>
+            remember me
         </div>
 
         {captchaUrl && <img src={captchaUrl} alt=''/>}
 
         {
             captchaUrl &&
-                <Field placeholder={'Symbols from image'}
-                       component={Input}
-                       name={'captchaUrl'}
-                       validate={[required]}
-                />
+            <Field placeholder={'Symbols from image'}
+                   component={Input}
+                   name={'captchaUrl'}
+                   validate={[required]}
+            />
         }
 
         {
@@ -57,7 +60,7 @@ export const LoginForm = ({handleSubmit, error, captchaUrl}: LoginFormPropsType 
         }
 
         <div>
-            <button>Login</button>
+            <SuperButton>Login</SuperButton>
         </div>
     </form>
 }
