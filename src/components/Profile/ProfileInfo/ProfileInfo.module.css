@@ -1,12 +1,46 @@
 .fullName{
-    font-weight: bold;
-    text-transform: uppercase;
+    margin-top: 15px;
+    font-size: 21px;
+    font-weight: 500;
 }
 
 .content {
-    max-width: 300px;
+    display: flex;
 }
 
-.contact{
-    padding-left: 15px;
+.items{
+    margin-top: 7px;
+}
+
+.photo {
+    margin-top: 20px;
+}
+.photo img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.info{
+    margin-left: 40px;
+}
+
+.params{
+    font-size: 17px;
+    color: #818c99;
+    font-weight: 400;
+}
+
+.value {
+    margin-left: 10px;
+    font-size: 17px;
+    color: #2a5885;
+    font-weight: 600;
+}
+
+.button {
+    margin-top: 10px;
+}
+
+.contacts{
+    margin-top: 3px;
 }

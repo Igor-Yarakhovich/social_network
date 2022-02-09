@@ -30,7 +30,8 @@
 
 }
 .item a.activeLink{
-    color: #ffde00;
+    color: #2a5885;
+    font-weight: 700
 }
 
 .icon{

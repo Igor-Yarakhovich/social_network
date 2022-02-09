@@ -1,0 +1,12 @@
+.params{
+    font-size: 17px;
+    color: #818c99;
+    font-weight: 400;
+}
+
+.value{
+    margin-left: 10px;
+    font-size: 17px;
+    color: black;
+    font-weight: 600;
+}

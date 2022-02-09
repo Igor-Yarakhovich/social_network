@@ -5,6 +5,7 @@ import {PostsType} from "../../../redux/profileReducer";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormControls";
+import SuperButton from "../../../assets/superButton/SuperButton";
 
 type MyPostsType = {
     postsData: Array<PostsType>
@@ -23,7 +24,7 @@ export const MyPosts = React.memo((props: MyPostsType) => {
     }
     return (
         <div>
-            <h3>My posts</h3>
+            <div className={m.header}>My posts</div>
             <AddNewPostFormRedux onSubmit={onAddPost}
             />
             <div className={m.posts}>
@@ -40,15 +41,17 @@ type AddNewPostTextPropsType = {
 let AddNewPostForm = (props: AddNewPostTextPropsType) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field name='newPostText'
-                       placeholder='Post message'
-                       component={Textarea}
-                       validate={[required, maxLength10]}
-                />
-            </div>
-            <div>
-                <button>Add posts</button>
+            <div className={m.addPostContainer}>
+                <div>
+                    <Field name='newPostText'
+                           placeholder='Post message'
+                           component={Textarea}
+                           validate={[required, maxLength10]}
+                    />
+                </div>
+                <div className={m.addPostButton}>
+                    <SuperButton>Add posts</SuperButton>
+                </div>
             </div>
         </form>
     )

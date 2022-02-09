@@ -65,17 +65,25 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, saveProfile
     }
     return (
         <div className={p.content}>
-            <img alt='' src={profile.photos.large || UserPhoto}/>
+            <div className={p.photo}>
+                <div>
+                    <img alt='' src={profile.photos.large || UserPhoto}/>
+                </div>
+                <div>
+                    {isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
+                </div>
+            </div>
 
-            {isOwner && <input type='file' onChange={onMainPhotoSelected}/>}
-            {editMode
+            <div className={p.info}>
+                <ProfileStatusWithHooks status={status}
+                                        updateStatus={updateStatus}
+                />
+                {editMode
+                    ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
+                    : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={editModeFalseHandler}/>}
+            </div>
 
-                ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
-                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={editModeFalseHandler}/>}
 
-            <ProfileStatusWithHooks status={status}
-                                    updateStatus={updateStatus}
-            />
         </div>
 
     )
