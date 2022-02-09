@@ -4,3 +4,32 @@
 .item img{
     width: 70px;
 }
+
+.content {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.text {
+    font-size: 17px;
+    color: #2a5885;
+    font-weight: 600;
+}
+
+.likes {
+    margin-left: 10px;
+}
+
+.params {
+    font-size: 17px;
+    color: #818c99;
+    font-weight: 400;
+}
+
+.value {
+    margin-left: 10px;
+    font-size: 17px;
+    color: #2a5885;
+    font-weight: 500;
+}

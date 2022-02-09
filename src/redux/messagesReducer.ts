@@ -4,7 +4,7 @@ import {v1} from "uuid";
 let initialState = {
     messagesData: [
         {name: 'Igor', id: v1()},
-        {name: 'Anna', id: v1()},
+        {name: 'Garri', id: v1()},
         {name: 'Maxim', id: v1()},
         {name: 'Vlad', id: v1()}
     ],

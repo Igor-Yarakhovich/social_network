@@ -5,9 +5,21 @@
 }
 
 .item img {
-    width: 50px;
+    width: 80px;
     border-radius: 25px;
+    margin-top: 20px;
     margin-right: 5px;
     margin-bottom: 5px;
+}
 
+.name {
+    margin-top: 10px;
+    margin-left: 5px;
+
+}
+
+.item a{
+    color: #2a5885;
+    font-weight: 700;
+    text-decoration: none;
 }

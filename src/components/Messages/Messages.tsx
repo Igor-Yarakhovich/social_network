@@ -4,25 +4,26 @@ import m from './Messages.module.css'
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Message} from "./Message/Message";
 import {DialogType, MessageType} from "./MessagesContainer";
-import {MessageReduxForm} from "./Message/AddMessageForm";
 
 
 export const Messages = (props: MessagesType) => {
     let messageElement = props.messagesData.map((d: MessageType) => <Dialogs key={d.id} name={d.name} id={d.id}/>)
     let dialogElement = props.dialogsData.map((m: DialogType) => <Message key={m.id} text={m.text} id={m.id}/>)
 
-    let addNewMessage = (value: any) => {
-        props.addMessage(value.newMessageText)
-    }
+    // let addNewMessage = (value: any) => {
+    //     props.addMessage(value.newMessageText)
+    // }
     return (
         <div className={m.Messages}>
-            <div className={m.Messages_text}>
-                {messageElement}
-            </div>
-            <div className={m.Messages_items}>
-                {dialogElement}
-            </div>
-            <MessageReduxForm onSubmit={addNewMessage}/>
+
+                <div className={m.Messages_text}>
+                    {messageElement}
+                </div>
+                <div className={m.Messages_items}>
+                    {dialogElement}
+                </div>
+
+            {/*<MessageReduxForm onSubmit={addNewMessage}/>*/}
         </div>
     )
 }
